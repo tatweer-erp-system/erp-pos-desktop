@@ -1,0 +1,723 @@
+<UserControl x:Class="TatweerPOS.Views.Pages.ReportsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:components="clr-namespace:TatweerPOS.Components">
+
+    <Grid Background="{StaticResource WindowBg}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ═══ Header Section ═══ -->
+        <Border x:Name="HeaderSection" Grid.Row="0" Padding="24,20,24,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="ChartBox" Width="28" Height="28"
+                                             Foreground="{StaticResource PrimaryBrush}"
+                                             VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBlock Text="{StaticResource str_Reports}"
+                               FontSize="24" FontWeight="Bold"
+                               Foreground="{StaticResource TextPrimary}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Export & Print Buttons -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Style="{StaticResource PrimaryButtonStyle}"
+                            Height="38" Padding="16,0" Margin="0,0,8,0"
+                            Click="OnExportPdfClick">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FilePdfBox" Width="18" Height="18"
+                                                     VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBlock Text="{StaticResource str_ExportPDF}"
+                                       VerticalAlignment="Center" FontSize="13"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource PrimaryButtonStyle}"
+                            Height="38" Padding="16,0"
+                            Click="OnPrintClick">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Printer" Width="18" Height="18"
+                                                     VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBlock Text="{StaticResource str_Print}"
+                                       VerticalAlignment="Center" FontSize="13"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ═══ Filters Row: Report Tabs + Date Range ═══ -->
+        <Border x:Name="FiltersRow" Grid.Row="1" Padding="24,16,24,16">
+            <StackPanel>
+                <!-- Report Type Tabs -->
+                <Border Background="{StaticResource SurfaceBg}" CornerRadius="10"
+                        Padding="4" Margin="0,0,0,16">
+                    <UniformGrid Columns="5">
+                        <RadioButton x:Name="TabSales" Content="{StaticResource str_DailySales}"
+                                     GroupName="ReportType" IsChecked="True"
+                                     Checked="OnReportTabChanged"
+                                     Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                                     Foreground="{StaticResource TextSecondary}"
+                                     FontSize="13" Height="38" Cursor="Hand"/>
+                        <RadioButton x:Name="TabProducts" Content="{StaticResource str_TopProducts}"
+                                     GroupName="ReportType"
+                                     Checked="OnReportTabChanged"
+                                     Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                                     Foreground="{StaticResource TextSecondary}"
+                                     FontSize="13" Height="38" Cursor="Hand"/>
+                        <RadioButton x:Name="TabCustomers" Content="{StaticResource str_Customers}"
+                                     GroupName="ReportType"
+                                     Checked="OnReportTabChanged"
+                                     Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                                     Foreground="{StaticResource TextSecondary}"
+                                     FontSize="13" Height="38" Cursor="Hand"/>
+                        <RadioButton x:Name="TabEmployees" Content="{StaticResource str_Employees}"
+                                     GroupName="ReportType"
+                                     Checked="OnReportTabChanged"
+                                     Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                                     Foreground="{StaticResource TextSecondary}"
+                                     FontSize="13" Height="38" Cursor="Hand"/>
+                        <RadioButton x:Name="TabAudit" Content="{StaticResource str_AuditLog}"
+                                     GroupName="ReportType"
+                                     Checked="OnReportTabChanged"
+                                     Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                                     Foreground="{StaticResource TextSecondary}"
+                                     FontSize="13" Height="38" Cursor="Hand"/>
+                    </UniformGrid>
+                </Border>
+
+                <!-- Date Range + Generate -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Text="{StaticResource str_From}"
+                                   FontSize="13" Foreground="{StaticResource TextSecondary}"
+                                   VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <DatePicker x:Name="DateFrom"
+                                    Width="160" Height="40"
+                                    FontSize="13"
+                                    Background="{StaticResource InputBg}"
+                                    Foreground="{StaticResource TextPrimary}"
+                                    BorderBrush="{StaticResource InputBorder}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                        <TextBlock Text="{StaticResource str_To}"
+                                   FontSize="13" Foreground="{StaticResource TextSecondary}"
+                                   VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <DatePicker x:Name="DateTo"
+                                    Width="160" Height="40"
+                                    FontSize="13"
+                                    Background="{StaticResource InputBg}"
+                                    Foreground="{StaticResource TextPrimary}"
+                                    BorderBrush="{StaticResource InputBorder}"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="4"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Height="40" Padding="20,0"
+                            Click="OnGenerateReportClick">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ChartBar" Width="18" Height="18"
+                                                     VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBlock Text="{StaticResource str_Submit}"
+                                       VerticalAlignment="Center" FontSize="13"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- ═══ Loading State ═══ -->
+        <StackPanel x:Name="LoadingState" Grid.Row="2" Visibility="Collapsed"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+            <components:LoadingSkeleton SkeletonHeight="120" SkeletonWidth="700" Margin="0,0,0,16"/>
+            <components:LoadingSkeleton SkeletonHeight="200" SkeletonWidth="700"/>
+        </StackPanel>
+
+        <!-- ═══ Content Area ═══ -->
+        <ScrollViewer x:Name="ContentArea" Grid.Row="2"
+                      VerticalScrollBarVisibility="Auto" Padding="24,0,24,24">
+
+            <!-- ── Sales Report View ── -->
+            <StackPanel x:Name="SalesReportView">
+                <!-- Summary Cards -->
+                <UniformGrid Columns="3" Margin="0,0,0,20">
+                    <!-- Total Sales -->
+                    <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                            Padding="20,16" Margin="0,0,8,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <materialDesign:PackIcon Kind="CashMultiple" Width="20" Height="20"
+                                                         Foreground="{StaticResource SuccessBrush}"
+                                                         VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock Text="{StaticResource str_GrossSales}"
+                                           FontSize="13" Foreground="{StaticResource TextSecondary}"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock x:Name="TotalSalesText" Text="0.00"
+                                       FontSize="28" FontWeight="Bold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                        </StackPanel>
+                    </Border>
+                    <!-- Total Orders -->
+                    <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                            Padding="20,16" Margin="4,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <materialDesign:PackIcon Kind="CartOutline" Width="20" Height="20"
+                                                         Foreground="{StaticResource PrimaryBrush}"
+                                                         VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock Text="{StaticResource str_TotalOrders}"
+                                           FontSize="13" Foreground="{StaticResource TextSecondary}"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock x:Name="TotalOrdersText" Text="0"
+                                       FontSize="28" FontWeight="Bold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                        </StackPanel>
+                    </Border>
+                    <!-- Average Order Value -->
+                    <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                            Padding="20,16" Margin="8,0,0,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <materialDesign:PackIcon Kind="TrendingUp" Width="20" Height="20"
+                                                         Foreground="{StaticResource WarningBrush}"
+                                                         VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock Text="{StaticResource str_AverageOrder}"
+                                           FontSize="13" Foreground="{StaticResource TextSecondary}"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock x:Name="AvgOrderText" Text="0.00"
+                                       FontSize="28" FontWeight="Bold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+
+                <!-- Chart Placeholders -->
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Sales by Payment Method -->
+                    <Border Grid.Column="0" Background="{StaticResource CardBg}"
+                            CornerRadius="12" Padding="20" MinHeight="250">
+                        <StackPanel>
+                            <TextBlock Text="{StaticResource str_PaymentMethodLabel}"
+                                       FontSize="15" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextPrimary}"
+                                       Margin="0,0,0,16"/>
+                            <!-- Chart Placeholder -->
+                            <Border Background="{StaticResource SurfaceBg}"
+                                    CornerRadius="8" Height="180"
+                                    HorizontalAlignment="Stretch">
+                                <StackPanel HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="ChartPie"
+                                                             Width="40" Height="40"
+                                                             Foreground="{StaticResource TextMuted}"
+                                                             HorizontalAlignment="Center"
+                                                             Margin="0,0,0,8"/>
+                                    <TextBlock Text="{StaticResource str_SalesChart}"
+                                               FontSize="13"
+                                               Foreground="{StaticResource TextMuted}"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Sales by Day -->
+                    <Border Grid.Column="2" Background="{StaticResource CardBg}"
+                            CornerRadius="12" Padding="20" MinHeight="250">
+                        <StackPanel>
+                            <TextBlock Text="{StaticResource str_DailySales}"
+                                       FontSize="15" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextPrimary}"
+                                       Margin="0,0,0,16"/>
+                            <!-- Chart Placeholder -->
+                            <Border Background="{StaticResource SurfaceBg}"
+                                    CornerRadius="8" Height="180"
+                                    HorizontalAlignment="Stretch">
+                                <StackPanel HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="ChartBar"
+                                                             Width="40" Height="40"
+                                                             Foreground="{StaticResource TextMuted}"
+                                                             HorizontalAlignment="Center"
+                                                             Margin="0,0,0,8"/>
+                                    <TextBlock Text="{StaticResource str_SalesChart}"
+                                               FontSize="13"
+                                               Foreground="{StaticResource TextMuted}"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Top Products Table -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="{StaticResource str_TopProducts}"
+                                   FontSize="15" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextPrimary}"
+                                   Margin="0,0,0,12"/>
+                        <DataGrid x:Name="TopProductsGrid"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  HeadersVisibility="Column"
+                                  GridLinesVisibility="None"
+                                  Background="Transparent"
+                                  Foreground="{StaticResource TextPrimary}"
+                                  BorderThickness="0"
+                                  RowBackground="{StaticResource CardBg}"
+                                  AlternatingRowBackground="{StaticResource SurfaceBg}"
+                                  FontSize="13" MaxHeight="300">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="{StaticResource SurfaceBg}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Padding" Value="14,10"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Padding" Value="14,8"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGridCell">
+                                                <Border Padding="{TemplateBinding Padding}"
+                                                        Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.CellStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="{StaticResource str_ProductName}"
+                                                    Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="{StaticResource str_Quantity}"
+                                                    Binding="{Binding QtySold}" Width="100"/>
+                                <DataGridTextColumn Header="{StaticResource str_Revenue}"
+                                                    Binding="{Binding Revenue, Converter={StaticResource CurrencyFormat}}"
+                                                    Width="140"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <components:EmptyState x:Name="SalesEmptyState"
+                                               Icon="ChartBoxOutline"
+                                               Title="{StaticResource str_NoData}"
+                                               Visibility="Collapsed"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- ── Products Report View ── -->
+            <StackPanel x:Name="ProductsReportView" Visibility="Collapsed">
+                <!-- Top Selling Products -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="20" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="{StaticResource str_TopProducts}"
+                                   FontSize="15" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextPrimary}"
+                                   Margin="0,0,0,12"/>
+                        <DataGrid x:Name="TopSellingGrid"
+                                  AutoGenerateColumns="False" IsReadOnly="True"
+                                  HeadersVisibility="Column" GridLinesVisibility="None"
+                                  Background="Transparent" Foreground="{StaticResource TextPrimary}"
+                                  BorderThickness="0" FontSize="13"
+                                  RowBackground="{StaticResource CardBg}"
+                                  AlternatingRowBackground="{StaticResource SurfaceBg}"
+                                  MaxHeight="300">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="{StaticResource SurfaceBg}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Padding" Value="14,10"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Padding" Value="14,8"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGridCell">
+                                                <Border Padding="{TemplateBinding Padding}"
+                                                        Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.CellStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="{StaticResource str_ProductName}"
+                                                    Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="{StaticResource str_Category}"
+                                                    Binding="{Binding Category}" Width="120"/>
+                                <DataGridTextColumn Header="{StaticResource str_Quantity}"
+                                                    Binding="{Binding QtySold}" Width="100"/>
+                                <DataGridTextColumn Header="{StaticResource str_Revenue}"
+                                                    Binding="{Binding Revenue, Converter={StaticResource CurrencyFormat}}"
+                                                    Width="140"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Low Stock Products -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="{StaticResource str_LowStock}"
+                                   FontSize="15" FontWeight="SemiBold"
+                                   Foreground="{StaticResource ErrorBrush}"
+                                   Margin="0,0,0,12"/>
+                        <DataGrid x:Name="LowStockGrid"
+                                  AutoGenerateColumns="False" IsReadOnly="True"
+                                  HeadersVisibility="Column" GridLinesVisibility="None"
+                                  Background="Transparent" Foreground="{StaticResource TextPrimary}"
+                                  BorderThickness="0" FontSize="13"
+                                  RowBackground="{StaticResource CardBg}"
+                                  AlternatingRowBackground="{StaticResource SurfaceBg}"
+                                  MaxHeight="300">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="{StaticResource SurfaceBg}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Padding" Value="14,10"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Padding" Value="14,8"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGridCell">
+                                                <Border Padding="{TemplateBinding Padding}"
+                                                        Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.CellStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="{StaticResource str_ProductName}"
+                                                    Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="{StaticResource str_SKU}"
+                                                    Binding="{Binding SKU}" Width="120"/>
+                                <DataGridTextColumn Header="{StaticResource str_Stock}"
+                                                    Binding="{Binding Stock}" Width="80"/>
+                                <DataGridTextColumn Header="{StaticResource str_MinStock}"
+                                                    Binding="{Binding MinStock}" Width="80"/>
+                                <DataGridTemplateColumn Header="{StaticResource str_Status}" Width="100">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Stock, Converter={StaticResource StockStatus}}"
+                                                       FontSize="12" FontWeight="SemiBold"
+                                                       Foreground="{StaticResource ErrorBrush}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <components:EmptyState x:Name="ProductsReportEmptyState"
+                                               Icon="PackageVariant"
+                                               Title="{StaticResource str_NoData}"
+                                               Visibility="Collapsed"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- ── Customers Report View ── -->
+            <StackPanel x:Name="CustomersReportView" Visibility="Collapsed">
+                <!-- Top Customers by Spending -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="20" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="{StaticResource str_TotalSpent}"
+                                   FontSize="15" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextPrimary}"
+                                   Margin="0,0,0,12"/>
+                        <DataGrid x:Name="TopCustomersGrid"
+                                  AutoGenerateColumns="False" IsReadOnly="True"
+                                  HeadersVisibility="Column" GridLinesVisibility="None"
+                                  Background="Transparent" Foreground="{StaticResource TextPrimary}"
+                                  BorderThickness="0" FontSize="13"
+                                  RowBackground="{StaticResource CardBg}"
+                                  AlternatingRowBackground="{StaticResource SurfaceBg}"
+                                  MaxHeight="300">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="{StaticResource SurfaceBg}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Padding" Value="14,10"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Padding" Value="14,8"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGridCell">
+                                                <Border Padding="{TemplateBinding Padding}"
+                                                        Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.CellStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="{StaticResource str_CustomerName}"
+                                                    Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="{StaticResource str_Phone}"
+                                                    Binding="{Binding Phone}" Width="120"/>
+                                <DataGridTextColumn Header="{StaticResource str_TotalSpent}"
+                                                    Binding="{Binding TotalSpent, Converter={StaticResource CurrencyFormat}}"
+                                                    Width="140"/>
+                                <DataGridTextColumn Header="{StaticResource str_LoyaltyPoints}"
+                                                    Binding="{Binding LoyaltyPoints}" Width="100"/>
+                                <DataGridTextColumn Header="{StaticResource str_CustomerTier}"
+                                                    Binding="{Binding Tier, Converter={StaticResource EnumToString}}"
+                                                    Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <components:EmptyState x:Name="CustomersReportEmptyState"
+                                               Icon="AccountGroupOutline"
+                                               Title="{StaticResource str_NoData}"
+                                               Visibility="Collapsed"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Customer Tier Distribution -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="{StaticResource str_CustomerTier}"
+                                   FontSize="15" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextPrimary}"
+                                   Margin="0,0,0,16"/>
+                        <Border Background="{StaticResource SurfaceBg}"
+                                CornerRadius="8" Height="180"
+                                HorizontalAlignment="Stretch">
+                            <StackPanel HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                <materialDesign:PackIcon Kind="ChartDonut"
+                                                         Width="40" Height="40"
+                                                         Foreground="{StaticResource TextMuted}"
+                                                         HorizontalAlignment="Center"
+                                                         Margin="0,0,0,8"/>
+                                <TextBlock Text="{StaticResource str_SalesChart}"
+                                           FontSize="13"
+                                           Foreground="{StaticResource TextMuted}"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- ── Employees Report View ── -->
+            <StackPanel x:Name="EmployeesReportView" Visibility="Collapsed">
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="{StaticResource str_Employees}"
+                                   FontSize="15" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextPrimary}"
+                                   Margin="0,0,0,12"/>
+                        <DataGrid x:Name="EmployeesReportGrid"
+                                  AutoGenerateColumns="False" IsReadOnly="True"
+                                  HeadersVisibility="Column" GridLinesVisibility="None"
+                                  Background="Transparent" Foreground="{StaticResource TextPrimary}"
+                                  BorderThickness="0" FontSize="13"
+                                  RowBackground="{StaticResource CardBg}"
+                                  AlternatingRowBackground="{StaticResource SurfaceBg}"
+                                  MaxHeight="400">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="{StaticResource SurfaceBg}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Padding" Value="14,10"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Padding" Value="14,8"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGridCell">
+                                                <Border Padding="{TemplateBinding Padding}"
+                                                        Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.CellStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="{StaticResource str_EmployeeName}"
+                                                    Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="{StaticResource str_Role}"
+                                                    Binding="{Binding Role, Converter={StaticResource EnumToString}}"
+                                                    Width="120"/>
+                                <DataGridTextColumn Header="{StaticResource str_TotalOrders}"
+                                                    Binding="{Binding OrderCount}" Width="100"/>
+                                <DataGridTextColumn Header="{StaticResource str_Revenue}"
+                                                    Binding="{Binding TotalSales, Converter={StaticResource CurrencyFormat}}"
+                                                    Width="140"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <components:EmptyState x:Name="EmployeesReportEmptyState"
+                                               Icon="AccountGroupOutline"
+                                               Title="{StaticResource str_NoData}"
+                                               Visibility="Collapsed"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- ── Audit Log View ── -->
+            <StackPanel x:Name="AuditLogView" Visibility="Collapsed">
+                <!-- Action Filter -->
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="AuditActionFilter"
+                              Style="{StaticResource DarkComboStyle}"
+                              Height="40"
+                              SelectionChanged="OnAuditFilterChanged">
+                        <ComboBoxItem Content="{StaticResource str_AllOrders}" IsSelected="True"/>
+                        <ComboBoxItem Content="{StaticResource str_SignIn}"/>
+                        <ComboBoxItem Content="{StaticResource str_SignOut}"/>
+                        <ComboBoxItem Content="{StaticResource str_Checkout}"/>
+                        <ComboBoxItem Content="{StaticResource str_Refund}"/>
+                        <ComboBoxItem Content="{StaticResource str_Void}"/>
+                        <ComboBoxItem Content="{StaticResource str_StockAdjustment}"/>
+                        <ComboBoxItem Content="{StaticResource str_SettingsChange}"/>
+                    </ComboBox>
+                </Grid>
+
+                <!-- Audit Log Table -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="4">
+                    <DataGrid x:Name="AuditLogGrid"
+                              AutoGenerateColumns="False" IsReadOnly="True"
+                              HeadersVisibility="Column" GridLinesVisibility="None"
+                              Background="Transparent" Foreground="{StaticResource TextPrimary}"
+                              BorderThickness="0" FontSize="13"
+                              RowBackground="{StaticResource CardBg}"
+                              AlternatingRowBackground="{StaticResource SurfaceBg}"
+                              MaxHeight="500">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="{StaticResource SurfaceBg}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="Padding" Value="14,10"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Padding" Value="14,8"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="DataGridCell">
+                                            <Border Padding="{TemplateBinding Padding}"
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{StaticResource str_DateTime}"
+                                                Binding="{Binding Timestamp, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}"
+                                                Width="170"/>
+                            <DataGridTextColumn Header="{StaticResource str_EmployeeName}"
+                                                Binding="{Binding UserName}" Width="*"/>
+                            <DataGridTextColumn Header="{StaticResource str_Actions}"
+                                                Binding="{Binding Action, Converter={StaticResource EnumToString}}"
+                                                Width="140"/>
+                            <DataGridTextColumn Header="{StaticResource str_Description}"
+                                                Binding="{Binding Description}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+
+                <components:EmptyState x:Name="AuditEmptyState"
+                                       Icon="ShieldSearch"
+                                       Title="{StaticResource str_NoData}"
+                                       Visibility="Collapsed"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,779 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- TatweerPOS — Localization Strings (EN + AR)                    -->
+    <!-- Each English key has a matching _AR key with Arabic translation -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+    <!-- ── App ────────────────────────────────────────────────────── -->
+    <sys:String x:Key="str_AppName">TatweerPOS</sys:String>
+    <sys:String x:Key="str_AppName_AR">تطوير نقاط البيع</sys:String>
+    <sys:String x:Key="str_AppTagline">Smart Point of Sale</sys:String>
+    <sys:String x:Key="str_AppTagline_AR">نقطة بيع ذكية</sys:String>
+
+
+    <!-- ── Navigation ─────────────────────────────────────────────── -->
+    <sys:String x:Key="str_POS">Point of Sale</sys:String>
+    <sys:String x:Key="str_POS_AR">نقطة البيع</sys:String>
+    <sys:String x:Key="str_Inventory">Inventory</sys:String>
+    <sys:String x:Key="str_Inventory_AR">المخزون</sys:String>
+    <sys:String x:Key="str_Customers">Customers</sys:String>
+    <sys:String x:Key="str_Customers_AR">العملاء</sys:String>
+    <sys:String x:Key="str_Orders">Orders</sys:String>
+    <sys:String x:Key="str_Orders_AR">الطلبات</sys:String>
+    <sys:String x:Key="str_Tables">Tables</sys:String>
+    <sys:String x:Key="str_Tables_AR">الطاولات</sys:String>
+    <sys:String x:Key="str_Kitchen">Kitchen</sys:String>
+    <sys:String x:Key="str_Kitchen_AR">المطبخ</sys:String>
+    <sys:String x:Key="str_Employees">Employees</sys:String>
+    <sys:String x:Key="str_Employees_AR">الموظفون</sys:String>
+    <sys:String x:Key="str_Suppliers">Suppliers</sys:String>
+    <sys:String x:Key="str_Suppliers_AR">الموردون</sys:String>
+    <sys:String x:Key="str_Reports">Reports</sys:String>
+    <sys:String x:Key="str_Reports_AR">التقارير</sys:String>
+    <sys:String x:Key="str_Settings">Settings</sys:String>
+    <sys:String x:Key="str_Settings_AR">الإعدادات</sys:String>
+
+
+    <!-- ── Common Actions ─────────────────────────────────────────── -->
+    <sys:String x:Key="str_Search">Search</sys:String>
+    <sys:String x:Key="str_Search_AR">بحث</sys:String>
+    <sys:String x:Key="str_Add">Add</sys:String>
+    <sys:String x:Key="str_Add_AR">إضافة</sys:String>
+    <sys:String x:Key="str_Edit">Edit</sys:String>
+    <sys:String x:Key="str_Edit_AR">تعديل</sys:String>
+    <sys:String x:Key="str_Delete">Delete</sys:String>
+    <sys:String x:Key="str_Delete_AR">حذف</sys:String>
+    <sys:String x:Key="str_Save">Save</sys:String>
+    <sys:String x:Key="str_Save_AR">حفظ</sys:String>
+    <sys:String x:Key="str_Cancel">Cancel</sys:String>
+    <sys:String x:Key="str_Cancel_AR">إلغاء</sys:String>
+    <sys:String x:Key="str_Confirm">Confirm</sys:String>
+    <sys:String x:Key="str_Confirm_AR">تأكيد</sys:String>
+    <sys:String x:Key="str_Close">Close</sys:String>
+    <sys:String x:Key="str_Close_AR">إغلاق</sys:String>
+    <sys:String x:Key="str_Back">Back</sys:String>
+    <sys:String x:Key="str_Back_AR">رجوع</sys:String>
+    <sys:String x:Key="str_Next">Next</sys:String>
+    <sys:String x:Key="str_Next_AR">التالي</sys:String>
+    <sys:String x:Key="str_Loading">Loading...</sys:String>
+    <sys:String x:Key="str_Loading_AR">جارٍ التحميل...</sys:String>
+    <sys:String x:Key="str_Submit">Submit</sys:String>
+    <sys:String x:Key="str_Submit_AR">إرسال</sys:String>
+    <sys:String x:Key="str_Yes">Yes</sys:String>
+    <sys:String x:Key="str_Yes_AR">نعم</sys:String>
+    <sys:String x:Key="str_No">No</sys:String>
+    <sys:String x:Key="str_No_AR">لا</sys:String>
+    <sys:String x:Key="str_OK">OK</sys:String>
+    <sys:String x:Key="str_OK_AR">موافق</sys:String>
+    <sys:String x:Key="str_Refresh">Refresh</sys:String>
+    <sys:String x:Key="str_Refresh_AR">تحديث</sys:String>
+    <sys:String x:Key="str_Filter">Filter</sys:String>
+    <sys:String x:Key="str_Filter_AR">تصفية</sys:String>
+    <sys:String x:Key="str_Sort">Sort</sys:String>
+    <sys:String x:Key="str_Sort_AR">ترتيب</sys:String>
+    <sys:String x:Key="str_Export">Export</sys:String>
+    <sys:String x:Key="str_Export_AR">تصدير</sys:String>
+    <sys:String x:Key="str_Import">Import</sys:String>
+    <sys:String x:Key="str_Import_AR">استيراد</sys:String>
+    <sys:String x:Key="str_Print">Print</sys:String>
+    <sys:String x:Key="str_Print_AR">طباعة</sys:String>
+    <sys:String x:Key="str_Reset">Reset</sys:String>
+    <sys:String x:Key="str_Reset_AR">إعادة تعيين</sys:String>
+    <sys:String x:Key="str_Apply">Apply</sys:String>
+    <sys:String x:Key="str_Apply_AR">تطبيق</sys:String>
+    <sys:String x:Key="str_View">View</sys:String>
+    <sys:String x:Key="str_View_AR">عرض</sys:String>
+    <sys:String x:Key="str_Details">Details</sys:String>
+    <sys:String x:Key="str_Details_AR">التفاصيل</sys:String>
+    <sys:String x:Key="str_SelectAll">Select All</sys:String>
+    <sys:String x:Key="str_SelectAll_AR">تحديد الكل</sys:String>
+    <sys:String x:Key="str_DeselectAll">Deselect All</sys:String>
+    <sys:String x:Key="str_DeselectAll_AR">إلغاء تحديد الكل</sys:String>
+
+
+    <!-- ── Login ──────────────────────────────────────────────────── -->
+    <sys:String x:Key="str_SignIn">Sign In</sys:String>
+    <sys:String x:Key="str_SignIn_AR">تسجيل الدخول</sys:String>
+    <sys:String x:Key="str_Email">Email</sys:String>
+    <sys:String x:Key="str_Email_AR">البريد الإلكتروني</sys:String>
+    <sys:String x:Key="str_Password">Password</sys:String>
+    <sys:String x:Key="str_Password_AR">كلمة المرور</sys:String>
+    <sys:String x:Key="str_RememberMe">Remember Me</sys:String>
+    <sys:String x:Key="str_RememberMe_AR">تذكرني</sys:String>
+    <sys:String x:Key="str_ForgotPassword">Forgot Password?</sys:String>
+    <sys:String x:Key="str_ForgotPassword_AR">نسيت كلمة المرور؟</sys:String>
+    <sys:String x:Key="str_Branch">Branch</sys:String>
+    <sys:String x:Key="str_Branch_AR">الفرع</sys:String>
+    <sys:String x:Key="str_SelectBranch">Select Branch</sys:String>
+    <sys:String x:Key="str_SelectBranch_AR">اختر الفرع</sys:String>
+    <sys:String x:Key="str_Welcome">Welcome</sys:String>
+    <sys:String x:Key="str_Welcome_AR">مرحباً</sys:String>
+    <sys:String x:Key="str_SigningIn">Signing in...</sys:String>
+    <sys:String x:Key="str_SigningIn_AR">جارٍ تسجيل الدخول...</sys:String>
+    <sys:String x:Key="str_InvalidCredentials">Invalid email or password</sys:String>
+    <sys:String x:Key="str_InvalidCredentials_AR">البريد الإلكتروني أو كلمة المرور غير صحيحة</sys:String>
+    <sys:String x:Key="str_TooManyAttempts">Too many attempts. Please try again later.</sys:String>
+    <sys:String x:Key="str_TooManyAttempts_AR">محاولات كثيرة جداً. يرجى المحاولة لاحقاً.</sys:String>
+    <sys:String x:Key="str_ContactAdmin">Contact your administrator</sys:String>
+    <sys:String x:Key="str_ContactAdmin_AR">تواصل مع المسؤول</sys:String>
+    <sys:String x:Key="str_SignOut">Sign Out</sys:String>
+    <sys:String x:Key="str_SignOut_AR">تسجيل الخروج</sys:String>
+
+
+    <!-- ── POS ────────────────────────────────────────────────────── -->
+    <sys:String x:Key="str_Cart">Cart</sys:String>
+    <sys:String x:Key="str_Cart_AR">السلة</sys:String>
+    <sys:String x:Key="str_Checkout">Checkout</sys:String>
+    <sys:String x:Key="str_Checkout_AR">الدفع</sys:String>
+    <sys:String x:Key="str_Pay">Pay</sys:String>
+    <sys:String x:Key="str_Pay_AR">ادفع</sys:String>
+    <sys:String x:Key="str_Total">Total</sys:String>
+    <sys:String x:Key="str_Total_AR">الإجمالي</sys:String>
+    <sys:String x:Key="str_Subtotal">Subtotal</sys:String>
+    <sys:String x:Key="str_Subtotal_AR">المجموع الفرعي</sys:String>
+    <sys:String x:Key="str_Tax">Tax</sys:String>
+    <sys:String x:Key="str_Tax_AR">الضريبة</sys:String>
+    <sys:String x:Key="str_Discount">Discount</sys:String>
+    <sys:String x:Key="str_Discount_AR">الخصم</sys:String>
+    <sys:String x:Key="str_Change">Change</sys:String>
+    <sys:String x:Key="str_Change_AR">الباقي</sys:String>
+    <sys:String x:Key="str_AmountPaid">Amount Paid</sys:String>
+    <sys:String x:Key="str_AmountPaid_AR">المبلغ المدفوع</sys:String>
+    <sys:String x:Key="str_HoldOrder">Hold Order</sys:String>
+    <sys:String x:Key="str_HoldOrder_AR">تعليق الطلب</sys:String>
+    <sys:String x:Key="str_RecallOrder">Recall Order</sys:String>
+    <sys:String x:Key="str_RecallOrder_AR">استرجاع الطلب</sys:String>
+    <sys:String x:Key="str_ClearCart">Clear Cart</sys:String>
+    <sys:String x:Key="str_ClearCart_AR">تفريغ السلة</sys:String>
+    <sys:String x:Key="str_ApplyCoupon">Apply Coupon</sys:String>
+    <sys:String x:Key="str_ApplyCoupon_AR">تطبيق القسيمة</sys:String>
+    <sys:String x:Key="str_PaymentCash">Cash</sys:String>
+    <sys:String x:Key="str_PaymentCash_AR">نقداً</sys:String>
+    <sys:String x:Key="str_PaymentCard">Card</sys:String>
+    <sys:String x:Key="str_PaymentCard_AR">بطاقة</sys:String>
+    <sys:String x:Key="str_PaymentMixed">Mixed Payment</sys:String>
+    <sys:String x:Key="str_PaymentMixed_AR">دفع مختلط</sys:String>
+    <sys:String x:Key="str_PrintReceipt">Print Receipt</sys:String>
+    <sys:String x:Key="str_PrintReceipt_AR">طباعة الإيصال</sys:String>
+    <sys:String x:Key="str_OrderComplete">Order Complete</sys:String>
+    <sys:String x:Key="str_OrderComplete_AR">تم إكمال الطلب</sys:String>
+    <sys:String x:Key="str_Barcode">Barcode</sys:String>
+    <sys:String x:Key="str_Barcode_AR">الباركود</sys:String>
+    <sys:String x:Key="str_AddToCart">Add to Cart</sys:String>
+    <sys:String x:Key="str_AddToCart_AR">أضف إلى السلة</sys:String>
+    <sys:String x:Key="str_Quantity">Quantity</sys:String>
+    <sys:String x:Key="str_Quantity_AR">الكمية</sys:String>
+    <sys:String x:Key="str_UnitPrice">Unit Price</sys:String>
+    <sys:String x:Key="str_UnitPrice_AR">سعر الوحدة</sys:String>
+    <sys:String x:Key="str_NoProductsFound">No products found</sys:String>
+    <sys:String x:Key="str_NoProductsFound_AR">لم يتم العثور على منتجات</sys:String>
+    <sys:String x:Key="str_ScanBarcode">Scan Barcode</sys:String>
+    <sys:String x:Key="str_ScanBarcode_AR">مسح الباركود</sys:String>
+    <sys:String x:Key="str_QuickSale">Quick Sale</sys:String>
+    <sys:String x:Key="str_QuickSale_AR">بيع سريع</sys:String>
+
+
+    <!-- ── Inventory ──────────────────────────────────────────────── -->
+    <sys:String x:Key="str_ProductName">Product Name</sys:String>
+    <sys:String x:Key="str_ProductName_AR">اسم المنتج</sys:String>
+    <sys:String x:Key="str_SKU">SKU</sys:String>
+    <sys:String x:Key="str_SKU_AR">رمز المنتج</sys:String>
+    <sys:String x:Key="str_Category">Category</sys:String>
+    <sys:String x:Key="str_Category_AR">الفئة</sys:String>
+    <sys:String x:Key="str_Price">Price</sys:String>
+    <sys:String x:Key="str_Price_AR">السعر</sys:String>
+    <sys:String x:Key="str_CostPrice">Cost Price</sys:String>
+    <sys:String x:Key="str_CostPrice_AR">سعر التكلفة</sys:String>
+    <sys:String x:Key="str_Stock">Stock</sys:String>
+    <sys:String x:Key="str_Stock_AR">المخزون</sys:String>
+    <sys:String x:Key="str_MinStock">Min Stock</sys:String>
+    <sys:String x:Key="str_MinStock_AR">الحد الأدنى للمخزون</sys:String>
+    <sys:String x:Key="str_LowStock">Low Stock</sys:String>
+    <sys:String x:Key="str_LowStock_AR">مخزون منخفض</sys:String>
+    <sys:String x:Key="str_OutOfStock">Out of Stock</sys:String>
+    <sys:String x:Key="str_OutOfStock_AR">نفد من المخزون</sys:String>
+    <sys:String x:Key="str_InStock">In Stock</sys:String>
+    <sys:String x:Key="str_InStock_AR">متوفر</sys:String>
+    <sys:String x:Key="str_AddProduct">Add Product</sys:String>
+    <sys:String x:Key="str_AddProduct_AR">إضافة منتج</sys:String>
+    <sys:String x:Key="str_EditProduct">Edit Product</sys:String>
+    <sys:String x:Key="str_EditProduct_AR">تعديل المنتج</sys:String>
+    <sys:String x:Key="str_StockAdjustment">Stock Adjustment</sys:String>
+    <sys:String x:Key="str_StockAdjustment_AR">تعديل المخزون</sys:String>
+    <sys:String x:Key="str_ProductCategories">Product Categories</sys:String>
+    <sys:String x:Key="str_ProductCategories_AR">فئات المنتجات</sys:String>
+    <sys:String x:Key="str_AllCategories">All Categories</sys:String>
+    <sys:String x:Key="str_AllCategories_AR">جميع الفئات</sys:String>
+    <sys:String x:Key="str_Description">Description</sys:String>
+    <sys:String x:Key="str_Description_AR">الوصف</sys:String>
+
+
+    <!-- ── Customers ──────────────────────────────────────────────── -->
+    <sys:String x:Key="str_CustomerName">Customer Name</sys:String>
+    <sys:String x:Key="str_CustomerName_AR">اسم العميل</sys:String>
+    <sys:String x:Key="str_Phone">Phone</sys:String>
+    <sys:String x:Key="str_Phone_AR">الهاتف</sys:String>
+    <sys:String x:Key="str_EmailAddress">Email Address</sys:String>
+    <sys:String x:Key="str_EmailAddress_AR">البريد الإلكتروني</sys:String>
+    <sys:String x:Key="str_Address">Address</sys:String>
+    <sys:String x:Key="str_Address_AR">العنوان</sys:String>
+    <sys:String x:Key="str_LoyaltyPoints">Loyalty Points</sys:String>
+    <sys:String x:Key="str_LoyaltyPoints_AR">نقاط الولاء</sys:String>
+    <sys:String x:Key="str_TotalSpent">Total Spent</sys:String>
+    <sys:String x:Key="str_TotalSpent_AR">إجمالي الإنفاق</sys:String>
+    <sys:String x:Key="str_JoinDate">Join Date</sys:String>
+    <sys:String x:Key="str_JoinDate_AR">تاريخ الانضمام</sys:String>
+    <sys:String x:Key="str_AddCustomer">Add Customer</sys:String>
+    <sys:String x:Key="str_AddCustomer_AR">إضافة عميل</sys:String>
+    <sys:String x:Key="str_EditCustomer">Edit Customer</sys:String>
+    <sys:String x:Key="str_EditCustomer_AR">تعديل العميل</sys:String>
+    <sys:String x:Key="str_PurchaseHistory">Purchase History</sys:String>
+    <sys:String x:Key="str_PurchaseHistory_AR">سجل المشتريات</sys:String>
+    <sys:String x:Key="str_CustomerTier">Customer Tier</sys:String>
+    <sys:String x:Key="str_CustomerTier_AR">فئة العميل</sys:String>
+    <sys:String x:Key="str_WalkInCustomer">Walk-in Customer</sys:String>
+    <sys:String x:Key="str_WalkInCustomer_AR">عميل زائر</sys:String>
+
+
+    <!-- ── Orders ─────────────────────────────────────────────────── -->
+    <sys:String x:Key="str_OrderNumber">Order Number</sys:String>
+    <sys:String x:Key="str_OrderNumber_AR">رقم الطلب</sys:String>
+    <sys:String x:Key="str_OrderDate">Order Date</sys:String>
+    <sys:String x:Key="str_OrderDate_AR">تاريخ الطلب</sys:String>
+    <sys:String x:Key="str_OrderStatus">Order Status</sys:String>
+    <sys:String x:Key="str_OrderStatus_AR">حالة الطلب</sys:String>
+    <sys:String x:Key="str_PaymentMethodLabel">Payment Method</sys:String>
+    <sys:String x:Key="str_PaymentMethodLabel_AR">طريقة الدفع</sys:String>
+    <sys:String x:Key="str_OrderTotal">Order Total</sys:String>
+    <sys:String x:Key="str_OrderTotal_AR">إجمالي الطلب</sys:String>
+    <sys:String x:Key="str_Void">Void</sys:String>
+    <sys:String x:Key="str_Void_AR">إلغاء</sys:String>
+    <sys:String x:Key="str_Refund">Refund</sys:String>
+    <sys:String x:Key="str_Refund_AR">استرداد</sys:String>
+    <sys:String x:Key="str_Reprint">Reprint</sys:String>
+    <sys:String x:Key="str_Reprint_AR">إعادة طباعة</sys:String>
+    <sys:String x:Key="str_OrderDetails">Order Details</sys:String>
+    <sys:String x:Key="str_OrderDetails_AR">تفاصيل الطلب</sys:String>
+    <sys:String x:Key="str_AllOrders">All Orders</sys:String>
+    <sys:String x:Key="str_AllOrders_AR">جميع الطلبات</sys:String>
+    <sys:String x:Key="str_PendingOrders">Pending Orders</sys:String>
+    <sys:String x:Key="str_PendingOrders_AR">طلبات معلقة</sys:String>
+    <sys:String x:Key="str_CompletedOrders">Completed Orders</sys:String>
+    <sys:String x:Key="str_CompletedOrders_AR">طلبات مكتملة</sys:String>
+    <sys:String x:Key="str_NewOrder">New Order</sys:String>
+    <sys:String x:Key="str_NewOrder_AR">طلب جديد</sys:String>
+    <sys:String x:Key="str_OrderItems">Order Items</sys:String>
+    <sys:String x:Key="str_OrderItems_AR">عناصر الطلب</sys:String>
+
+
+    <!-- ── Tables ─────────────────────────────────────────────────── -->
+    <sys:String x:Key="str_TableNumber">Table Number</sys:String>
+    <sys:String x:Key="str_TableNumber_AR">رقم الطاولة</sys:String>
+    <sys:String x:Key="str_Capacity">Capacity</sys:String>
+    <sys:String x:Key="str_Capacity_AR">السعة</sys:String>
+    <sys:String x:Key="str_Floor">Floor</sys:String>
+    <sys:String x:Key="str_Floor_AR">الطابق</sys:String>
+    <sys:String x:Key="str_Available">Available</sys:String>
+    <sys:String x:Key="str_Available_AR">متاح</sys:String>
+    <sys:String x:Key="str_Occupied">Occupied</sys:String>
+    <sys:String x:Key="str_Occupied_AR">مشغول</sys:String>
+    <sys:String x:Key="str_Reserved">Reserved</sys:String>
+    <sys:String x:Key="str_Reserved_AR">محجوز</sys:String>
+    <sys:String x:Key="str_Cleaning">Cleaning</sys:String>
+    <sys:String x:Key="str_Cleaning_AR">تنظيف</sys:String>
+    <sys:String x:Key="str_AssignOrder">Assign Order</sys:String>
+    <sys:String x:Key="str_AssignOrder_AR">تعيين طلب</sys:String>
+    <sys:String x:Key="str_TransferTable">Transfer Table</sys:String>
+    <sys:String x:Key="str_TransferTable_AR">نقل الطاولة</sys:String>
+    <sys:String x:Key="str_MergeTables">Merge Tables</sys:String>
+    <sys:String x:Key="str_MergeTables_AR">دمج الطاولات</sys:String>
+    <sys:String x:Key="str_TableMap">Table Map</sys:String>
+    <sys:String x:Key="str_TableMap_AR">خريطة الطاولات</sys:String>
+
+
+    <!-- ── Kitchen ────────────────────────────────────────────────── -->
+    <sys:String x:Key="str_NewOrders">New Orders</sys:String>
+    <sys:String x:Key="str_NewOrders_AR">طلبات جديدة</sys:String>
+    <sys:String x:Key="str_Preparing">Preparing</sys:String>
+    <sys:String x:Key="str_Preparing_AR">قيد التحضير</sys:String>
+    <sys:String x:Key="str_Ready">Ready</sys:String>
+    <sys:String x:Key="str_Ready_AR">جاهز</sys:String>
+    <sys:String x:Key="str_Served">Served</sys:String>
+    <sys:String x:Key="str_Served_AR">تم التقديم</sys:String>
+    <sys:String x:Key="str_MarkReady">Mark Ready</sys:String>
+    <sys:String x:Key="str_MarkReady_AR">تحديد كجاهز</sys:String>
+    <sys:String x:Key="str_MarkServed">Mark Served</sys:String>
+    <sys:String x:Key="str_MarkServed_AR">تحديد كمُقدَّم</sys:String>
+    <sys:String x:Key="str_ElapsedTime">Elapsed Time</sys:String>
+    <sys:String x:Key="str_ElapsedTime_AR">الوقت المنقضي</sys:String>
+    <sys:String x:Key="str_KitchenDisplay">Kitchen Display</sys:String>
+    <sys:String x:Key="str_KitchenDisplay_AR">شاشة المطبخ</sys:String>
+    <sys:String x:Key="str_Priority">Priority</sys:String>
+    <sys:String x:Key="str_Priority_AR">الأولوية</sys:String>
+
+
+    <!-- ── Employees ──────────────────────────────────────────────── -->
+    <sys:String x:Key="str_EmployeeName">Employee Name</sys:String>
+    <sys:String x:Key="str_EmployeeName_AR">اسم الموظف</sys:String>
+    <sys:String x:Key="str_Role">Role</sys:String>
+    <sys:String x:Key="str_Role_AR">الدور</sys:String>
+    <sys:String x:Key="str_HireDate">Hire Date</sys:String>
+    <sys:String x:Key="str_HireDate_AR">تاريخ التوظيف</sys:String>
+    <sys:String x:Key="str_Active">Active</sys:String>
+    <sys:String x:Key="str_Active_AR">نشط</sys:String>
+    <sys:String x:Key="str_Inactive">Inactive</sys:String>
+    <sys:String x:Key="str_Inactive_AR">غير نشط</sys:String>
+    <sys:String x:Key="str_AddEmployee">Add Employee</sys:String>
+    <sys:String x:Key="str_AddEmployee_AR">إضافة موظف</sys:String>
+    <sys:String x:Key="str_EditEmployee">Edit Employee</sys:String>
+    <sys:String x:Key="str_EditEmployee_AR">تعديل الموظف</sys:String>
+    <sys:String x:Key="str_Pin">PIN</sys:String>
+    <sys:String x:Key="str_Pin_AR">الرقم السري</sys:String>
+    <sys:String x:Key="str_ResetPin">Reset PIN</sys:String>
+    <sys:String x:Key="str_ResetPin_AR">إعادة تعيين الرقم السري</sys:String>
+    <sys:String x:Key="str_Cashier">Cashier</sys:String>
+    <sys:String x:Key="str_Cashier_AR">أمين الصندوق</sys:String>
+    <sys:String x:Key="str_Manager">Manager</sys:String>
+    <sys:String x:Key="str_Manager_AR">مدير</sys:String>
+    <sys:String x:Key="str_Admin">Admin</sys:String>
+    <sys:String x:Key="str_Admin_AR">مسؤول النظام</sys:String>
+
+
+    <!-- ── Suppliers ──────────────────────────────────────────────── -->
+    <sys:String x:Key="str_SupplierName">Supplier Name</sys:String>
+    <sys:String x:Key="str_SupplierName_AR">اسم المورد</sys:String>
+    <sys:String x:Key="str_ContactPerson">Contact Person</sys:String>
+    <sys:String x:Key="str_ContactPerson_AR">جهة الاتصال</sys:String>
+    <sys:String x:Key="str_PaymentTerms">Payment Terms</sys:String>
+    <sys:String x:Key="str_PaymentTerms_AR">شروط الدفع</sys:String>
+    <sys:String x:Key="str_AddSupplier">Add Supplier</sys:String>
+    <sys:String x:Key="str_AddSupplier_AR">إضافة مورد</sys:String>
+    <sys:String x:Key="str_EditSupplier">Edit Supplier</sys:String>
+    <sys:String x:Key="str_EditSupplier_AR">تعديل المورد</sys:String>
+    <sys:String x:Key="str_SupplierBalance">Supplier Balance</sys:String>
+    <sys:String x:Key="str_SupplierBalance_AR">رصيد المورد</sys:String>
+    <sys:String x:Key="str_PurchaseOrders">Purchase Orders</sys:String>
+    <sys:String x:Key="str_PurchaseOrders_AR">أوامر الشراء</sys:String>
+
+
+    <!-- ── Reports ────────────────────────────────────────────────── -->
+    <sys:String x:Key="str_DailySales">Daily Sales</sys:String>
+    <sys:String x:Key="str_DailySales_AR">المبيعات اليومية</sys:String>
+    <sys:String x:Key="str_TopProducts">Top Products</sys:String>
+    <sys:String x:Key="str_TopProducts_AR">أفضل المنتجات</sys:String>
+    <sys:String x:Key="str_SalesChart">Sales Chart</sys:String>
+    <sys:String x:Key="str_SalesChart_AR">مخطط المبيعات</sys:String>
+    <sys:String x:Key="str_Revenue">Revenue</sys:String>
+    <sys:String x:Key="str_Revenue_AR">الإيرادات</sys:String>
+    <sys:String x:Key="str_AverageOrder">Average Order</sys:String>
+    <sys:String x:Key="str_AverageOrder_AR">متوسط الطلب</sys:String>
+    <sys:String x:Key="str_TotalOrders">Total Orders</sys:String>
+    <sys:String x:Key="str_TotalOrders_AR">إجمالي الطلبات</sys:String>
+    <sys:String x:Key="str_TotalRefunds">Total Refunds</sys:String>
+    <sys:String x:Key="str_TotalRefunds_AR">إجمالي المرتجعات</sys:String>
+    <sys:String x:Key="str_AuditLog">Audit Log</sys:String>
+    <sys:String x:Key="str_AuditLog_AR">سجل المراجعة</sys:String>
+    <sys:String x:Key="str_ExportPDF">Export PDF</sys:String>
+    <sys:String x:Key="str_ExportPDF_AR">تصدير PDF</sys:String>
+    <sys:String x:Key="str_DateRange">Date Range</sys:String>
+    <sys:String x:Key="str_DateRange_AR">نطاق التاريخ</sys:String>
+    <sys:String x:Key="str_Today">Today</sys:String>
+    <sys:String x:Key="str_Today_AR">اليوم</sys:String>
+    <sys:String x:Key="str_ThisWeek">This Week</sys:String>
+    <sys:String x:Key="str_ThisWeek_AR">هذا الأسبوع</sys:String>
+    <sys:String x:Key="str_ThisMonth">This Month</sys:String>
+    <sys:String x:Key="str_ThisMonth_AR">هذا الشهر</sys:String>
+    <sys:String x:Key="str_Yesterday">Yesterday</sys:String>
+    <sys:String x:Key="str_Yesterday_AR">أمس</sys:String>
+    <sys:String x:Key="str_LastWeek">Last Week</sys:String>
+    <sys:String x:Key="str_LastWeek_AR">الأسبوع الماضي</sys:String>
+    <sys:String x:Key="str_LastMonth">Last Month</sys:String>
+    <sys:String x:Key="str_LastMonth_AR">الشهر الماضي</sys:String>
+    <sys:String x:Key="str_Custom">Custom</sys:String>
+    <sys:String x:Key="str_Custom_AR">مخصص</sys:String>
+    <sys:String x:Key="str_From">From</sys:String>
+    <sys:String x:Key="str_From_AR">من</sys:String>
+    <sys:String x:Key="str_To">To</sys:String>
+    <sys:String x:Key="str_To_AR">إلى</sys:String>
+    <sys:String x:Key="str_Profit">Profit</sys:String>
+    <sys:String x:Key="str_Profit_AR">الربح</sys:String>
+    <sys:String x:Key="str_GrossSales">Gross Sales</sys:String>
+    <sys:String x:Key="str_GrossSales_AR">إجمالي المبيعات</sys:String>
+    <sys:String x:Key="str_NetSales">Net Sales</sys:String>
+    <sys:String x:Key="str_NetSales_AR">صافي المبيعات</sys:String>
+
+
+    <!-- ── Settings ───────────────────────────────────────────────── -->
+    <sys:String x:Key="str_General">General</sys:String>
+    <sys:String x:Key="str_General_AR">عام</sys:String>
+    <sys:String x:Key="str_Printing">Printing</sys:String>
+    <sys:String x:Key="str_Printing_AR">الطباعة</sys:String>
+    <sys:String x:Key="str_Security">Security</sys:String>
+    <sys:String x:Key="str_Security_AR">الأمان</sys:String>
+    <sys:String x:Key="str_Sync">Sync</sys:String>
+    <sys:String x:Key="str_Sync_AR">المزامنة</sys:String>
+    <sys:String x:Key="str_License">License</sys:String>
+    <sys:String x:Key="str_License_AR">الترخيص</sys:String>
+    <sys:String x:Key="str_Advanced">Advanced</sys:String>
+    <sys:String x:Key="str_Advanced_AR">متقدم</sys:String>
+    <sys:String x:Key="str_BusinessMode">Business Mode</sys:String>
+    <sys:String x:Key="str_BusinessMode_AR">نوع العمل</sys:String>
+    <sys:String x:Key="str_Language">Language</sys:String>
+    <sys:String x:Key="str_Language_AR">اللغة</sys:String>
+    <sys:String x:Key="str_Theme">Theme</sys:String>
+    <sys:String x:Key="str_Theme_AR">المظهر</sys:String>
+    <sys:String x:Key="str_DarkMode">Dark Mode</sys:String>
+    <sys:String x:Key="str_DarkMode_AR">الوضع الداكن</sys:String>
+    <sys:String x:Key="str_LightMode">Light Mode</sys:String>
+    <sys:String x:Key="str_LightMode_AR">الوضع الفاتح</sys:String>
+    <sys:String x:Key="str_TestPrint">Test Print</sys:String>
+    <sys:String x:Key="str_TestPrint_AR">طباعة تجريبية</sys:String>
+    <sys:String x:Key="str_SessionTimeout">Session Timeout</sys:String>
+    <sys:String x:Key="str_SessionTimeout_AR">مهلة الجلسة</sys:String>
+    <sys:String x:Key="str_ChangePin">Change PIN</sys:String>
+    <sys:String x:Key="str_ChangePin_AR">تغيير الرقم السري</sys:String>
+    <sys:String x:Key="str_ClearCache">Clear Cache</sys:String>
+    <sys:String x:Key="str_ClearCache_AR">مسح الذاكرة المؤقتة</sys:String>
+    <sys:String x:Key="str_Backup">Backup</sys:String>
+    <sys:String x:Key="str_Backup_AR">نسخ احتياطي</sys:String>
+    <sys:String x:Key="str_Restore">Restore</sys:String>
+    <sys:String x:Key="str_Restore_AR">استعادة</sys:String>
+    <sys:String x:Key="str_SyncNow">Sync Now</sys:String>
+    <sys:String x:Key="str_SyncNow_AR">مزامنة الآن</sys:String>
+    <sys:String x:Key="str_SyncStatus">Sync Status</sys:String>
+    <sys:String x:Key="str_SyncStatus_AR">حالة المزامنة</sys:String>
+    <sys:String x:Key="str_LicenseKey">License Key</sys:String>
+    <sys:String x:Key="str_LicenseKey_AR">مفتاح الترخيص</sys:String>
+    <sys:String x:Key="str_MachineFingerprint">Machine Fingerprint</sys:String>
+    <sys:String x:Key="str_MachineFingerprint_AR">بصمة الجهاز</sys:String>
+    <sys:String x:Key="str_Activate">Activate</sys:String>
+    <sys:String x:Key="str_Activate_AR">تفعيل</sys:String>
+    <sys:String x:Key="str_Currency">Currency</sys:String>
+    <sys:String x:Key="str_Currency_AR">العملة</sys:String>
+    <sys:String x:Key="str_TaxRate">Tax Rate</sys:String>
+    <sys:String x:Key="str_TaxRate_AR">نسبة الضريبة</sys:String>
+    <sys:String x:Key="str_ReceiptHeader">Receipt Header</sys:String>
+    <sys:String x:Key="str_ReceiptHeader_AR">ترويسة الإيصال</sys:String>
+    <sys:String x:Key="str_ReceiptFooter">Receipt Footer</sys:String>
+    <sys:String x:Key="str_ReceiptFooter_AR">تذييل الإيصال</sys:String>
+    <sys:String x:Key="str_PrinterName">Printer Name</sys:String>
+    <sys:String x:Key="str_PrinterName_AR">اسم الطابعة</sys:String>
+    <sys:String x:Key="str_AutoPrint">Auto Print</sys:String>
+    <sys:String x:Key="str_AutoPrint_AR">طباعة تلقائية</sys:String>
+
+
+    <!-- ── Status ─────────────────────────────────────────────────── -->
+    <sys:String x:Key="str_Synced">Synced</sys:String>
+    <sys:String x:Key="str_Synced_AR">تمت المزامنة</sys:String>
+    <sys:String x:Key="str_SyncPending">Sync Pending</sys:String>
+    <sys:String x:Key="str_SyncPending_AR">في انتظار المزامنة</sys:String>
+    <sys:String x:Key="str_SyncError">Sync Error</sys:String>
+    <sys:String x:Key="str_SyncError_AR">خطأ في المزامنة</sys:String>
+    <sys:String x:Key="str_Offline">Offline</sys:String>
+    <sys:String x:Key="str_Offline_AR">غير متصل</sys:String>
+    <sys:String x:Key="str_Online">Online</sys:String>
+    <sys:String x:Key="str_Online_AR">متصل</sys:String>
+    <sys:String x:Key="str_Success">Success</sys:String>
+    <sys:String x:Key="str_Success_AR">نجاح</sys:String>
+    <sys:String x:Key="str_Error">Error</sys:String>
+    <sys:String x:Key="str_Error_AR">خطأ</sys:String>
+    <sys:String x:Key="str_Warning">Warning</sys:String>
+    <sys:String x:Key="str_Warning_AR">تحذير</sys:String>
+    <sys:String x:Key="str_Info">Information</sys:String>
+    <sys:String x:Key="str_Info_AR">معلومات</sys:String>
+    <sys:String x:Key="str_Connected">Connected</sys:String>
+    <sys:String x:Key="str_Connected_AR">متصل</sys:String>
+    <sys:String x:Key="str_Disconnected">Disconnected</sys:String>
+    <sys:String x:Key="str_Disconnected_AR">غير متصل</sys:String>
+    <sys:String x:Key="str_Pending">Pending</sys:String>
+    <sys:String x:Key="str_Pending_AR">قيد الانتظار</sys:String>
+    <sys:String x:Key="str_Processing">Processing</sys:String>
+    <sys:String x:Key="str_Processing_AR">قيد المعالجة</sys:String>
+    <sys:String x:Key="str_Completed">Completed</sys:String>
+    <sys:String x:Key="str_Completed_AR">مكتمل</sys:String>
+    <sys:String x:Key="str_Cancelled">Cancelled</sys:String>
+    <sys:String x:Key="str_Cancelled_AR">ملغى</sys:String>
+
+
+    <!-- ── Empty States ───────────────────────────────────────────── -->
+    <sys:String x:Key="str_NoOrders">No orders yet</sys:String>
+    <sys:String x:Key="str_NoOrders_AR">لا توجد طلبات بعد</sys:String>
+    <sys:String x:Key="str_NoProducts">No products found</sys:String>
+    <sys:String x:Key="str_NoProducts_AR">لم يتم العثور على منتجات</sys:String>
+    <sys:String x:Key="str_NoCustomers">No customers found</sys:String>
+    <sys:String x:Key="str_NoCustomers_AR">لم يتم العثور على عملاء</sys:String>
+    <sys:String x:Key="str_NoEmployees">No employees found</sys:String>
+    <sys:String x:Key="str_NoEmployees_AR">لم يتم العثور على موظفين</sys:String>
+    <sys:String x:Key="str_NoSuppliers">No suppliers found</sys:String>
+    <sys:String x:Key="str_NoSuppliers_AR">لم يتم العثور على موردين</sys:String>
+    <sys:String x:Key="str_NoResults">No results found</sys:String>
+    <sys:String x:Key="str_NoResults_AR">لم يتم العثور على نتائج</sys:String>
+    <sys:String x:Key="str_EmptyCart">Your cart is empty</sys:String>
+    <sys:String x:Key="str_EmptyCart_AR">سلة المشتريات فارغة</sys:String>
+    <sys:String x:Key="str_NoData">No data available</sys:String>
+    <sys:String x:Key="str_NoData_AR">لا توجد بيانات متاحة</sys:String>
+
+
+    <!-- ── Errors / Validation ────────────────────────────────────── -->
+    <sys:String x:Key="str_RequiredField">This field is required</sys:String>
+    <sys:String x:Key="str_RequiredField_AR">هذا الحقل مطلوب</sys:String>
+    <sys:String x:Key="str_InvalidEmail">Please enter a valid email address</sys:String>
+    <sys:String x:Key="str_InvalidEmail_AR">يرجى إدخال بريد إلكتروني صالح</sys:String>
+    <sys:String x:Key="str_PasswordMinLength">Password must be at least 8 characters</sys:String>
+    <sys:String x:Key="str_PasswordMinLength_AR">يجب أن تكون كلمة المرور 8 أحرف على الأقل</sys:String>
+    <sys:String x:Key="str_UnexpectedError">An unexpected error occurred</sys:String>
+    <sys:String x:Key="str_UnexpectedError_AR">حدث خطأ غير متوقع</sys:String>
+    <sys:String x:Key="str_SyncFailed">Synchronization failed</sys:String>
+    <sys:String x:Key="str_SyncFailed_AR">فشلت المزامنة</sys:String>
+    <sys:String x:Key="str_NetworkError">Network connection error</sys:String>
+    <sys:String x:Key="str_NetworkError_AR">خطأ في الاتصال بالشبكة</sys:String>
+    <sys:String x:Key="str_InvalidBarcode">Invalid barcode</sys:String>
+    <sys:String x:Key="str_InvalidBarcode_AR">باركود غير صالح</sys:String>
+    <sys:String x:Key="str_InsufficientStock">Insufficient stock</sys:String>
+    <sys:String x:Key="str_InsufficientStock_AR">المخزون غير كافٍ</sys:String>
+    <sys:String x:Key="str_InsufficientPayment">Insufficient payment amount</sys:String>
+    <sys:String x:Key="str_InsufficientPayment_AR">مبلغ الدفع غير كافٍ</sys:String>
+    <sys:String x:Key="str_InvalidQuantity">Invalid quantity</sys:String>
+    <sys:String x:Key="str_InvalidQuantity_AR">كمية غير صالحة</sys:String>
+    <sys:String x:Key="str_InvalidPrice">Invalid price</sys:String>
+    <sys:String x:Key="str_InvalidPrice_AR">سعر غير صالح</sys:String>
+    <sys:String x:Key="str_DuplicateEntry">Duplicate entry</sys:String>
+    <sys:String x:Key="str_DuplicateEntry_AR">إدخال مكرر</sys:String>
+    <sys:String x:Key="str_OperationFailed">Operation failed</sys:String>
+    <sys:String x:Key="str_OperationFailed_AR">فشلت العملية</sys:String>
+    <sys:String x:Key="str_AccessDenied">Access denied</sys:String>
+    <sys:String x:Key="str_AccessDenied_AR">تم رفض الوصول</sys:String>
+    <sys:String x:Key="str_SessionExpired">Session expired. Please sign in again.</sys:String>
+    <sys:String x:Key="str_SessionExpired_AR">انتهت الجلسة. يرجى تسجيل الدخول مرة أخرى.</sys:String>
+
+
+    <!-- ── Confirmation Dialogs ───────────────────────────────────── -->
+    <sys:String x:Key="str_ConfirmDelete">Are you sure you want to delete this item?</sys:String>
+    <sys:String x:Key="str_ConfirmDelete_AR">هل أنت متأكد من حذف هذا العنصر؟</sys:String>
+    <sys:String x:Key="str_ConfirmVoid">Are you sure you want to void this order?</sys:String>
+    <sys:String x:Key="str_ConfirmVoid_AR">هل أنت متأكد من إلغاء هذا الطلب؟</sys:String>
+    <sys:String x:Key="str_ConfirmClearCart">Are you sure you want to clear the cart?</sys:String>
+    <sys:String x:Key="str_ConfirmClearCart_AR">هل أنت متأكد من تفريغ السلة؟</sys:String>
+    <sys:String x:Key="str_ConfirmSignOut">Are you sure you want to sign out?</sys:String>
+    <sys:String x:Key="str_ConfirmSignOut_AR">هل أنت متأكد من تسجيل الخروج؟</sys:String>
+    <sys:String x:Key="str_ConfirmRefund">Are you sure you want to refund this order?</sys:String>
+    <sys:String x:Key="str_ConfirmRefund_AR">هل أنت متأكد من استرداد هذا الطلب؟</sys:String>
+    <sys:String x:Key="str_UnsavedChanges">You have unsaved changes. Discard them?</sys:String>
+    <sys:String x:Key="str_UnsavedChanges_AR">لديك تغييرات غير محفوظة. هل تريد تجاهلها؟</sys:String>
+
+
+    <!-- ── Footer / About ─────────────────────────────────────────── -->
+    <sys:String x:Key="str_Copyright">Copyright</sys:String>
+    <sys:String x:Key="str_Copyright_AR">حقوق النشر</sys:String>
+    <sys:String x:Key="str_Version">Version</sys:String>
+    <sys:String x:Key="str_Version_AR">الإصدار</sys:String>
+    <sys:String x:Key="str_AllRightsReserved">All Rights Reserved</sys:String>
+    <sys:String x:Key="str_AllRightsReserved_AR">جميع الحقوق محفوظة</sys:String>
+    <sys:String x:Key="str_PoweredBy">Powered by Tatweer</sys:String>
+    <sys:String x:Key="str_PoweredBy_AR">مدعوم من تطوير</sys:String>
+    <sys:String x:Key="str_About">About</sys:String>
+    <sys:String x:Key="str_About_AR">حول</sys:String>
+    <sys:String x:Key="str_Help">Help</sys:String>
+    <sys:String x:Key="str_Help_AR">مساعدة</sys:String>
+
+
+    <!-- ── Time / Date ────────────────────────────────────────────── -->
+    <sys:String x:Key="str_Date">Date</sys:String>
+    <sys:String x:Key="str_Date_AR">التاريخ</sys:String>
+    <sys:String x:Key="str_Time">Time</sys:String>
+    <sys:String x:Key="str_Time_AR">الوقت</sys:String>
+    <sys:String x:Key="str_DateTime">Date &amp; Time</sys:String>
+    <sys:String x:Key="str_DateTime_AR">التاريخ والوقت</sys:String>
+    <sys:String x:Key="str_StartDate">Start Date</sys:String>
+    <sys:String x:Key="str_StartDate_AR">تاريخ البدء</sys:String>
+    <sys:String x:Key="str_EndDate">End Date</sys:String>
+    <sys:String x:Key="str_EndDate_AR">تاريخ الانتهاء</sys:String>
+
+
+    <!-- ── Components ──────────────────────────────────────────────── -->
+    <sys:String x:Key="str_ToggleTheme">Toggle Theme</sys:String>
+    <sys:String x:Key="str_ToggleTheme_AR">تبديل المظهر</sys:String>
+    <sys:String x:Key="str_SwitchUser">Switch User</sys:String>
+    <sys:String x:Key="str_SwitchUser_AR">تبديل المستخدم</sys:String>
+    <sys:String x:Key="str_EnterPin">Enter PIN</sys:String>
+    <sys:String x:Key="str_EnterPin_AR">أدخل الرقم السري</sys:String>
+    <sys:String x:Key="str_WrongPin">Wrong PIN</sys:String>
+    <sys:String x:Key="str_WrongPin_AR">الرقم السري خاطئ</sys:String>
+    <sys:String x:Key="str_ContactManager">Contact your manager</sys:String>
+    <sys:String x:Key="str_ContactManager_AR">تواصل مع مديرك</sys:String>
+    <sys:String x:Key="str_LockedFor">Locked for</sys:String>
+    <sys:String x:Key="str_LockedFor_AR">مقفل لمدة</sys:String>
+    <sys:String x:Key="str_Seconds">seconds</sys:String>
+    <sys:String x:Key="str_Seconds_AR">ثوانٍ</sys:String>
+    <sys:String x:Key="str_SearchPlaceholder">Search products...</sys:String>
+    <sys:String x:Key="str_SearchPlaceholder_AR">بحث عن المنتجات...</sys:String>
+    <sys:String x:Key="str_Clear">Clear</sys:String>
+    <sys:String x:Key="str_Clear_AR">مسح</sys:String>
+
+
+    <!-- ── POS Order Types ─────────────────────────────────────────── -->
+    <sys:String x:Key="str_DineIn">Dine In</sys:String>
+    <sys:String x:Key="str_DineIn_AR">تناول بالمطعم</sys:String>
+    <sys:String x:Key="str_TakeAway">Take Away</sys:String>
+    <sys:String x:Key="str_TakeAway_AR">سفري</sys:String>
+    <sys:String x:Key="str_Delivery">Delivery</sys:String>
+    <sys:String x:Key="str_Delivery_AR">توصيل</sys:String>
+    <sys:String x:Key="str_OnlineOrder">Online</sys:String>
+    <sys:String x:Key="str_OnlineOrder_AR">عبر الإنترنت</sys:String>
+    <sys:String x:Key="str_AllItems">All</sys:String>
+    <sys:String x:Key="str_AllItems_AR">الكل</sys:String>
+    <sys:String x:Key="str_NewTab">New Tab</sys:String>
+    <sys:String x:Key="str_NewTab_AR">تبويب جديد</sys:String>
+    <sys:String x:Key="str_CouponCode">Coupon Code</sys:String>
+    <sys:String x:Key="str_CouponCode_AR">رمز القسيمة</sys:String>
+    <sys:String x:Key="str_SelectCustomer">Select Customer</sys:String>
+    <sys:String x:Key="str_SelectCustomer_AR">اختر العميل</sys:String>
+    <sys:String x:Key="str_GrandTotal">Grand Total</sys:String>
+    <sys:String x:Key="str_GrandTotal_AR">الإجمالي الكلي</sys:String>
+    <sys:String x:Key="str_Order">Order</sys:String>
+    <sys:String x:Key="str_Order_AR">طلب</sys:String>
+
+    <!-- ── Tables Extra ─────────────────────────────────────────────── -->
+    <sys:String x:Key="str_OutOfService">Out of Service</sys:String>
+    <sys:String x:Key="str_OutOfService_AR">خارج الخدمة</sys:String>
+    <sys:String x:Key="str_Indoor">Indoor</sys:String>
+    <sys:String x:Key="str_Indoor_AR">داخلي</sys:String>
+    <sys:String x:Key="str_Outdoor">Outdoor</sys:String>
+    <sys:String x:Key="str_Outdoor_AR">خارجي</sys:String>
+    <sys:String x:Key="str_VIP">VIP</sys:String>
+    <sys:String x:Key="str_VIP_AR">VIP</sys:String>
+    <sys:String x:Key="str_Bar">Bar</sys:String>
+    <sys:String x:Key="str_Bar_AR">بار</sys:String>
+    <sys:String x:Key="str_AssignWaiter">Assign Waiter</sys:String>
+    <sys:String x:Key="str_AssignWaiter_AR">تعيين نادل</sys:String>
+    <sys:String x:Key="str_ChangeStatus">Change Status</sys:String>
+    <sys:String x:Key="str_ChangeStatus_AR">تغيير الحالة</sys:String>
+    <sys:String x:Key="str_CurrentOrder">Current Order</sys:String>
+    <sys:String x:Key="str_CurrentOrder_AR">الطلب الحالي</sys:String>
+    <sys:String x:Key="str_NoTables">No tables found</sys:String>
+    <sys:String x:Key="str_NoTables_AR">لم يتم العثور على طاولات</sys:String>
+    <sys:String x:Key="str_Waiter">Waiter</sys:String>
+    <sys:String x:Key="str_Waiter_AR">النادل</sys:String>
+
+    <!-- ── Inventory Extra ──────────────────────────────────────────── -->
+    <sys:String x:Key="str_TotalProducts">Total Products</sys:String>
+    <sys:String x:Key="str_TotalProducts_AR">إجمالي المنتجات</sys:String>
+
+    <!-- ── Customers Extra ──────────────────────────────────────────── -->
+    <sys:String x:Key="str_TotalCustomers">Total Customers</sys:String>
+    <sys:String x:Key="str_TotalCustomers_AR">إجمالي العملاء</sys:String>
+    <sys:String x:Key="str_ActiveCustomers">Active Customers</sys:String>
+    <sys:String x:Key="str_ActiveCustomers_AR">عملاء نشطون</sys:String>
+    <sys:String x:Key="str_Platinum">Platinum</sys:String>
+    <sys:String x:Key="str_Platinum_AR">بلاتيني</sys:String>
+    <sys:String x:Key="str_Gold">Gold</sys:String>
+    <sys:String x:Key="str_Gold_AR">ذهبي</sys:String>
+    <sys:String x:Key="str_Silver">Silver</sys:String>
+    <sys:String x:Key="str_Silver_AR">فضي</sys:String>
+    <sys:String x:Key="str_Bronze">Bronze</sys:String>
+    <sys:String x:Key="str_Bronze_AR">برونزي</sys:String>
+    <sys:String x:Key="str_AllTiers">All Tiers</sys:String>
+    <sys:String x:Key="str_AllTiers_AR">جميع الفئات</sys:String>
+
+    <!-- ── Orders Extra ─────────────────────────────────────────────── -->
+    <sys:String x:Key="str_TodayOrders">Today's Orders</sys:String>
+    <sys:String x:Key="str_TodayOrders_AR">طلبات اليوم</sys:String>
+    <sys:String x:Key="str_TodayRevenue">Today's Revenue</sys:String>
+    <sys:String x:Key="str_TodayRevenue_AR">إيرادات اليوم</sys:String>
+    <sys:String x:Key="str_InProgress">In Progress</sys:String>
+    <sys:String x:Key="str_InProgress_AR">قيد التنفيذ</sys:String>
+    <sys:String x:Key="str_Refunded">Refunded</sys:String>
+    <sys:String x:Key="str_Refunded_AR">مُسترد</sys:String>
+    <sys:String x:Key="str_ItemsCount">Items</sys:String>
+    <sys:String x:Key="str_ItemsCount_AR">عناصر</sys:String>
+
+
+    <!-- ── Dialogs ──────────────────────────────────────────────────── -->
+    <sys:String x:Key="str_Payment">Payment</sys:String>
+    <sys:String x:Key="str_Payment_AR">الدفع</sys:String>
+    <sys:String x:Key="str_PaymentMobile">Mobile</sys:String>
+    <sys:String x:Key="str_PaymentMobile_AR">جوال</sys:String>
+    <sys:String x:Key="str_PaymentSplit">Split</sys:String>
+    <sys:String x:Key="str_PaymentSplit_AR">تقسيم</sys:String>
+    <sys:String x:Key="str_AmountTendered">Amount Tendered</sys:String>
+    <sys:String x:Key="str_AmountTendered_AR">المبلغ المقدم</sys:String>
+    <sys:String x:Key="str_ChangeDue">Change Due</sys:String>
+    <sys:String x:Key="str_ChangeDue_AR">المبلغ المتبقي</sys:String>
+    <sys:String x:Key="str_QuickAmounts">Quick amounts</sys:String>
+    <sys:String x:Key="str_QuickAmounts_AR">مبالغ سريعة</sys:String>
+    <sys:String x:Key="str_Exact">Exact</sys:String>
+    <sys:String x:Key="str_Exact_AR">المبلغ بالضبط</sys:String>
+    <sys:String x:Key="str_CompletePayment">Complete Payment</sys:String>
+    <sys:String x:Key="str_CompletePayment_AR">إتمام الدفع</sys:String>
+    <sys:String x:Key="str_PrintPreview">Print Preview</sys:String>
+    <sys:String x:Key="str_PrintPreview_AR">معاينة الطباعة</sys:String>
+    <sys:String x:Key="str_PrintSuccess">Receipt printed successfully</sys:String>
+    <sys:String x:Key="str_PrintSuccess_AR">تمت طباعة الإيصال بنجاح</sys:String>
+    <sys:String x:Key="str_ExportPDFSuccess">PDF exported successfully</sys:String>
+    <sys:String x:Key="str_ExportPDFSuccess_AR">تم تصدير PDF بنجاح</sys:String>
+    <sys:String x:Key="str_ManagerOverride">Manager Override</sys:String>
+    <sys:String x:Key="str_ManagerOverride_AR">تجاوز المدير</sys:String>
+    <sys:String x:Key="str_ManagerAuthRequired">This action requires manager authorization</sys:String>
+    <sys:String x:Key="str_ManagerAuthRequired_AR">هذا الإجراء يتطلب تفويض المدير</sys:String>
+    <sys:String x:Key="str_Action">Action</sys:String>
+    <sys:String x:Key="str_Action_AR">الإجراء</sys:String>
+    <sys:String x:Key="str_ManagerPin">Manager PIN</sys:String>
+    <sys:String x:Key="str_ManagerPin_AR">رقم المدير السري</sys:String>
+    <sys:String x:Key="str_Authorize">Authorize</sys:String>
+    <sys:String x:Key="str_Authorize_AR">تفويض</sys:String>
+    <sys:String x:Key="str_WrongPinMessage">Incorrect PIN. Please try again.</sys:String>
+    <sys:String x:Key="str_WrongPinMessage_AR">الرقم السري غير صحيح. حاول مرة أخرى.</sys:String>
+    <sys:String x:Key="str_DialogLocked">Too many failed attempts. Dialog locked.</sys:String>
+    <sys:String x:Key="str_DialogLocked_AR">محاولات فاشلة كثيرة. تم قفل النافذة.</sys:String>
+    <sys:String x:Key="str_ThankYou">Thank you for visiting!</sys:String>
+    <sys:String x:Key="str_ThankYou_AR">شكراً لزيارتكم!</sys:String>
+
+    <!-- ── Miscellaneous ──────────────────────────────────────────── -->
+    <sys:String x:Key="str_Notes">Notes</sys:String>
+    <sys:String x:Key="str_Notes_AR">ملاحظات</sys:String>
+    <sys:String x:Key="str_Attachment">Attachment</sys:String>
+    <sys:String x:Key="str_Attachment_AR">مرفق</sys:String>
+    <sys:String x:Key="str_Image">Image</sys:String>
+    <sys:String x:Key="str_Image_AR">صورة</sys:String>
+    <sys:String x:Key="str_Name">Name</sys:String>
+    <sys:String x:Key="str_Name_AR">الاسم</sys:String>
+    <sys:String x:Key="str_Type">Type</sys:String>
+    <sys:String x:Key="str_Type_AR">النوع</sys:String>
+    <sys:String x:Key="str_Status">Status</sys:String>
+    <sys:String x:Key="str_Status_AR">الحالة</sys:String>
+    <sys:String x:Key="str_Actions">Actions</sys:String>
+    <sys:String x:Key="str_Actions_AR">الإجراءات</sys:String>
+    <sys:String x:Key="str_More">More</sys:String>
+    <sys:String x:Key="str_More_AR">المزيد</sys:String>
+    <sys:String x:Key="str_ShowAll">Show All</sys:String>
+    <sys:String x:Key="str_ShowAll_AR">عرض الكل</sys:String>
+    <sys:String x:Key="str_Collapse">Collapse</sys:String>
+    <sys:String x:Key="str_Collapse_AR">طي</sys:String>
+    <sys:String x:Key="str_Expand">Expand</sys:String>
+    <sys:String x:Key="str_Expand_AR">توسيع</sys:String>
+    <sys:String x:Key="str_Enabled">Enabled</sys:String>
+    <sys:String x:Key="str_Enabled_AR">مفعل</sys:String>
+    <sys:String x:Key="str_Disabled">Disabled</sys:String>
+    <sys:String x:Key="str_Disabled_AR">معطل</sys:String>
+    <sys:String x:Key="str_Selected">Selected</sys:String>
+    <sys:String x:Key="str_Selected_AR">محدد</sys:String>
+    <sys:String x:Key="str_Items">Items</sys:String>
+    <sys:String x:Key="str_Items_AR">عناصر</sys:String>
+    <sys:String x:Key="str_Of">of</sys:String>
+    <sys:String x:Key="str_Of_AR">من</sys:String>
+    <sys:String x:Key="str_Page">Page</sys:String>
+    <sys:String x:Key="str_Page_AR">صفحة</sys:String>
+    <sys:String x:Key="str_RowsPerPage">Rows per page</sys:String>
+    <sys:String x:Key="str_RowsPerPage_AR">صفوف في الصفحة</sys:String>
+    <sys:String x:Key="str_Previous">Previous</sys:String>
+    <sys:String x:Key="str_Previous_AR">السابق</sys:String>
+    <sys:String x:Key="str_Showing">Showing</sys:String>
+    <sys:String x:Key="str_Showing_AR">عرض</sys:String>
+    <sys:String x:Key="str_Results">Results</sys:String>
+    <sys:String x:Key="str_Results_AR">النتائج</sys:String>
+
+</ResourceDictionary>

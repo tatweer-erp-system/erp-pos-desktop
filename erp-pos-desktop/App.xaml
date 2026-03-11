@@ -1,0 +1,43 @@
+<Application x:Class="TatweerPOS.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:TatweerPOS.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <!-- MaterialDesign Dark Theme (per CLAUDE.md) -->
+                <materialDesign:BundledTheme BaseTheme="Dark"
+                                             PrimaryColor="Indigo"
+                                             SecondaryColor="Teal" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+
+                <!-- HandyControl -->
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml"/>
+
+                <!-- App Resources -->
+                <ResourceDictionary Source="Resources/Colors.xaml"/>
+                <ResourceDictionary Source="Resources/Styles.xaml"/>
+                <ResourceDictionary Source="Resources/Strings.xaml"/>
+                <ResourceDictionary Source="Resources/Animations.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/DarkTheme.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Converters -->
+            <local:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
+            <local:InverseBoolConverter x:Key="InverseBool"/>
+            <local:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility"/>
+            <local:CurrencyFormatConverter x:Key="CurrencyFormat"/>
+            <local:EnumToStringConverter x:Key="EnumToString"/>
+            <local:NullToVisibilityConverter x:Key="NullToVisibility"/>
+            <local:StatusToColorConverter x:Key="StatusToColor"/>
+            <local:StockStatusConverter x:Key="StockStatus"/>
+            <local:ThemeToIconConverter x:Key="ThemeToIcon"/>
+            <local:RoleToVisibilityConverter x:Key="RoleToVisibility"/>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

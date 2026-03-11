@@ -1,0 +1,423 @@
+<UserControl x:Class="TatweerPOS.Views.Pages.OrdersPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:components="clr-namespace:TatweerPOS.Components"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="1200">
+
+    <Grid Background="{StaticResource SurfaceBg}" Margin="24,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>  <!-- Header + stats -->
+            <RowDefinition Height="Auto"/>  <!-- Filters -->
+            <RowDefinition Height="*"/>     <!-- Content -->
+        </Grid.RowDefinitions>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- HEADER — Title + Today Stats                                   -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <StackPanel x:Name="HeaderSection" Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock Text="{StaticResource str_Orders}"
+                       FontSize="24" FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimary}"
+                       Margin="0,0,0,16"/>
+
+            <!-- Stats cards -->
+            <StackPanel Orientation="Horizontal">
+                <!-- Today's Orders -->
+                <Border Background="{StaticResource CardBg}"
+                        CornerRadius="12" Padding="20,14"
+                        Margin="0,0,12,0" MinWidth="200">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="40" Height="40" CornerRadius="10"
+                                Background="{StaticResource PrimaryBrush}" Opacity="0.15">
+                            <materialDesign:PackIcon Kind="ClipboardTextClock" Width="20" Height="20"
+                                                     Foreground="{StaticResource PrimaryBrush}"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding TodayOrderCount}"
+                                       FontSize="20" FontWeight="Bold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                            <TextBlock Text="{StaticResource str_TodayOrders}"
+                                       FontSize="11" Foreground="{StaticResource TextMuted}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Today's Revenue -->
+                <Border Background="{StaticResource CardBg}"
+                        CornerRadius="12" Padding="20,14"
+                        MinWidth="200">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="40" Height="40" CornerRadius="10"
+                                Background="{StaticResource SuccessBrush}" Opacity="0.15">
+                            <materialDesign:PackIcon Kind="CashMultiple" Width="20" Height="20"
+                                                     Foreground="{StaticResource SuccessBrush}"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding TodayRevenue, Converter={StaticResource CurrencyFormat}}"
+                                       FontSize="20" FontWeight="Bold"
+                                       Foreground="{StaticResource SuccessBrush}"/>
+                            <TextBlock Text="{StaticResource str_TodayRevenue}"
+                                       FontSize="11" Foreground="{StaticResource TextMuted}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- FILTERS ROW                                                    -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid x:Name="FiltersRow" Grid.Row="1" Margin="0,0,0,16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>  <!-- Status tabs -->
+                <RowDefinition Height="12"/>
+                <RowDefinition Height="Auto"/>  <!-- Search + date -->
+            </Grid.RowDefinitions>
+
+            <!-- Status tabs -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <RadioButton Content="{StaticResource str_AllOrders}"
+                             GroupName="StatusFilter"
+                             IsChecked="{Binding IsAllStatus}"
+                             Style="{StaticResource MaterialDesignTabRadioButtonStyle}"
+                             Foreground="{StaticResource TextSecondary}"
+                             Margin="0,0,4,0"/>
+                <RadioButton Content="{StaticResource str_Pending}"
+                             GroupName="StatusFilter"
+                             IsChecked="{Binding IsPendingFilter}"
+                             Style="{StaticResource MaterialDesignTabRadioButtonStyle}"
+                             Foreground="{StaticResource TextSecondary}"
+                             Margin="0,0,4,0"/>
+                <RadioButton Content="{StaticResource str_InProgress}"
+                             GroupName="StatusFilter"
+                             IsChecked="{Binding IsInProgressFilter}"
+                             Style="{StaticResource MaterialDesignTabRadioButtonStyle}"
+                             Foreground="{StaticResource TextSecondary}"
+                             Margin="0,0,4,0"/>
+                <RadioButton Content="{StaticResource str_Completed}"
+                             GroupName="StatusFilter"
+                             IsChecked="{Binding IsCompletedFilter}"
+                             Style="{StaticResource MaterialDesignTabRadioButtonStyle}"
+                             Foreground="{StaticResource TextSecondary}"
+                             Margin="0,0,4,0"/>
+                <RadioButton Content="{StaticResource str_Cancelled}"
+                             GroupName="StatusFilter"
+                             IsChecked="{Binding IsCancelledFilter}"
+                             Style="{StaticResource MaterialDesignTabRadioButtonStyle}"
+                             Foreground="{StaticResource TextSecondary}"
+                             Margin="0,0,4,0"/>
+                <RadioButton Content="{StaticResource str_Refunded}"
+                             GroupName="StatusFilter"
+                             IsChecked="{Binding IsRefundedFilter}"
+                             Style="{StaticResource MaterialDesignTabRadioButtonStyle}"
+                             Foreground="{StaticResource TextSecondary}"/>
+            </StackPanel>
+
+            <!-- Search + Date range -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MaxWidth="360"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <components:SearchBox Grid.Column="0"
+                                      SearchText="{Binding SearchText, Mode=TwoWay}"
+                                      Placeholder="{StaticResource str_SearchPlaceholder}"/>
+
+                <!-- Start date -->
+                <DatePicker Grid.Column="2"
+                            SelectedDate="{Binding StartDate}"
+                            Width="150"
+                            materialDesign:HintAssist.Hint="{StaticResource str_From}"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                            Foreground="{StaticResource TextPrimary}"
+                            BorderBrush="{StaticResource InputBorder}"/>
+
+                <!-- End date -->
+                <DatePicker Grid.Column="4"
+                            SelectedDate="{Binding EndDate}"
+                            Width="150"
+                            materialDesign:HintAssist.Hint="{StaticResource str_To}"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                            Foreground="{StaticResource TextPrimary}"
+                            BorderBrush="{StaticResource InputBorder}"/>
+            </Grid>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- CONTENT — Orders Table + Detail Panel                          -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid x:Name="ContentArea" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>  <!-- Detail panel -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Loading skeleton -->
+            <StackPanel Grid.Column="0"
+                        Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibility}}">
+                <components:LoadingSkeleton SkeletonWidth="0" SkeletonHeight="48"
+                                             SkeletonCornerRadius="8" Margin="0,0,0,8"/>
+                <components:LoadingSkeleton SkeletonWidth="0" SkeletonHeight="48"
+                                             SkeletonCornerRadius="8" Margin="0,0,0,8"/>
+                <components:LoadingSkeleton SkeletonWidth="0" SkeletonHeight="48"
+                                             SkeletonCornerRadius="8" Margin="0,0,0,8"/>
+                <components:LoadingSkeleton SkeletonWidth="0" SkeletonHeight="48"
+                                             SkeletonCornerRadius="8" Margin="0,0,0,8"/>
+            </StackPanel>
+
+            <!-- Empty state -->
+            <components:EmptyState Grid.Column="0"
+                                    Icon="ClipboardTextOff"
+                                    Title="{StaticResource str_NoOrders}"
+                                    Subtitle="{StaticResource str_NoResults}"
+                                    Visibility="{Binding ShowEmptyState, Converter={StaticResource BoolToVisibility}}"/>
+
+            <!-- Orders table -->
+            <Border Grid.Column="0"
+                    Background="{StaticResource CardBg}"
+                    CornerRadius="12"
+                    Visibility="{Binding IsLoading, Converter={StaticResource InverseBoolToVisibility}}">
+                <DataGrid ItemsSource="{Binding FilteredOrders}"
+                          SelectedItem="{Binding SelectedOrder}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserResizeRows="False"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="{StaticResource DividerBrush}"
+                          Background="Transparent"
+                          Foreground="{StaticResource TextPrimary}"
+                          RowBackground="Transparent"
+                          AlternatingRowBackground="Transparent"
+                          BorderThickness="0"
+                          FontSize="13"
+                          materialDesign:DataGridAssist.CellPadding="16,10"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="16,12"
+                          Cursor="Hand">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{StaticResource str_OrderNumber}"
+                                            Binding="{Binding OrderNumber}"
+                                            Width="110" FontWeight="SemiBold"/>
+                        <DataGridTextColumn Header="{StaticResource str_Date}"
+                                            Binding="{Binding OrderDate, StringFormat=dd/MM/yyyy HH:mm}"
+                                            Width="150"/>
+                        <DataGridTextColumn Header="{StaticResource str_CustomerName}"
+                                            Binding="{Binding CustomerName}"
+                                            Width="*"/>
+                        <DataGridTextColumn Header="{StaticResource str_ItemsCount}"
+                                            Binding="{Binding ItemsCount}"
+                                            Width="80"/>
+                        <DataGridTextColumn Header="{StaticResource str_Total}"
+                                            Binding="{Binding Total, Converter={StaticResource CurrencyFormat}}"
+                                            Width="100" FontWeight="Bold"/>
+                        <DataGridTemplateColumn Header="{StaticResource str_Status}" Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="6" Padding="8,3"
+                                            Background="{Binding Status, Converter={StaticResource StatusToColor}}"
+                                            HorizontalAlignment="Left">
+                                        <TextBlock Text="{Binding Status, Converter={StaticResource EnumToString}}"
+                                                   FontSize="11" FontWeight="Bold"
+                                                   Foreground="White"/>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="{StaticResource str_PaymentMethodLabel}"
+                                            Binding="{Binding PaymentMethod, Converter={StaticResource EnumToString}}"
+                                            Width="110"/>
+                        <DataGridTemplateColumn Header="{StaticResource str_Actions}" Width="130">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <!-- Print -->
+                                        <Button Style="{StaticResource TitleBarButtonStyle}"
+                                                Width="30" Height="30"
+                                                Command="{Binding DataContext.PrintOrderCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                ToolTip="{StaticResource str_Print}"
+                                                Cursor="Hand">
+                                            <materialDesign:PackIcon Kind="Printer" Width="16" Height="16"
+                                                                     Foreground="{StaticResource TextSecondary}"/>
+                                        </Button>
+                                        <!-- Refund (role-based) -->
+                                        <Button Style="{StaticResource TitleBarButtonStyle}"
+                                                Width="30" Height="30"
+                                                Command="{Binding DataContext.RefundOrderCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                ToolTip="{StaticResource str_Refund}"
+                                                Cursor="Hand"
+                                                Visibility="{Binding DataContext.CanRefund, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BoolToVisibility}}">
+                                            <materialDesign:PackIcon Kind="CashRefund" Width="16" Height="16"
+                                                                     Foreground="{StaticResource WarningBrush}"/>
+                                        </Button>
+                                        <!-- Void (role-based) -->
+                                        <Button Style="{StaticResource TitleBarButtonStyle}"
+                                                Width="30" Height="30"
+                                                Command="{Binding DataContext.VoidOrderCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                ToolTip="{StaticResource str_Void}"
+                                                Cursor="Hand"
+                                                Visibility="{Binding DataContext.CanVoid, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BoolToVisibility}}">
+                                            <materialDesign:PackIcon Kind="Cancel" Width="16" Height="16"
+                                                                     Foreground="{StaticResource ErrorBrush}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <!-- Detail panel -->
+            <Border Grid.Column="1"
+                    Width="360"
+                    Background="{StaticResource CardBg}"
+                    CornerRadius="12"
+                    Margin="16,0,0,0"
+                    Padding="20"
+                    Visibility="{Binding SelectedOrder, Converter={StaticResource NullToVisibility}}">
+                <DockPanel>
+                    <!-- Header -->
+                    <Grid DockPanel.Dock="Top" Margin="0,0,0,16">
+                        <TextBlock Text="{StaticResource str_OrderDetails}"
+                                   FontSize="16" FontWeight="Bold"
+                                   Foreground="{StaticResource TextPrimary}"/>
+                        <Button Style="{StaticResource TitleBarButtonStyle}"
+                                Width="28" Height="28"
+                                HorizontalAlignment="Right"
+                                Command="{Binding CloseDetailCommand}"
+                                Cursor="Hand">
+                            <materialDesign:PackIcon Kind="Close" Width="16" Height="16"
+                                                     Foreground="{StaticResource TextMuted}"/>
+                        </Button>
+                    </Grid>
+
+                    <Border DockPanel.Dock="Top" Height="1"
+                            Background="{StaticResource DividerBrush}" Margin="0,0,0,16"/>
+
+                    <!-- Order info -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <!-- Order number -->
+                            <TextBlock Text="{Binding SelectedOrder.OrderNumber}"
+                                       FontSize="18" FontWeight="Bold"
+                                       Foreground="{StaticResource PrimaryBrush}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,0,0,4"/>
+                            <!-- Status badge -->
+                            <Border CornerRadius="8" Padding="12,4"
+                                    Background="{Binding SelectedOrder.Status, Converter={StaticResource StatusToColor}}"
+                                    HorizontalAlignment="Center" Margin="0,0,0,16">
+                                <TextBlock Text="{Binding SelectedOrder.Status, Converter={StaticResource EnumToString}}"
+                                           FontSize="12" FontWeight="Bold"
+                                           Foreground="White"/>
+                            </Border>
+
+                            <!-- Info rows -->
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="{StaticResource str_Date}"
+                                           FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding SelectedOrder.OrderDate, StringFormat=dd/MM/yyyy HH:mm}"
+                                           FontSize="12" Foreground="{StaticResource TextPrimary}"
+                                           HorizontalAlignment="Right"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="{StaticResource str_CustomerName}"
+                                           FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding SelectedOrder.CustomerName}"
+                                           FontSize="12" Foreground="{StaticResource TextPrimary}"
+                                           HorizontalAlignment="Right"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="{StaticResource str_PaymentMethodLabel}"
+                                           FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding SelectedOrder.PaymentMethod, Converter={StaticResource EnumToString}}"
+                                           FontSize="12" Foreground="{StaticResource TextPrimary}"
+                                           HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <!-- Items list -->
+                            <Border Height="1" Background="{StaticResource DividerBrush}" Margin="0,8,0,12"/>
+                            <TextBlock Text="{StaticResource str_OrderItems}"
+                                       FontSize="13" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextPrimary}"
+                                       Margin="0,0,0,8"/>
+
+                            <ItemsControl ItemsSource="{Binding SelectedOrder.Items}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,0,0,8">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Text="{Binding ProductName}"
+                                                           FontSize="12" FontWeight="Medium"
+                                                           Foreground="{StaticResource TextPrimary}"/>
+                                                <TextBlock FontSize="11" Foreground="{StaticResource TextMuted}">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} x {1}">
+                                                            <Binding Path="Quantity"/>
+                                                            <Binding Path="UnitPrice" Converter="{StaticResource CurrencyFormat}"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding LineTotal, Converter={StaticResource CurrencyFormat}}"
+                                                       FontSize="12" FontWeight="Bold"
+                                                       Foreground="{StaticResource TextPrimary}"
+                                                       VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <!-- Totals -->
+                            <Border Height="1" Background="{StaticResource DividerBrush}" Margin="0,8,0,12"/>
+                            <Grid Margin="0,0,0,6">
+                                <TextBlock Text="{StaticResource str_Subtotal}"
+                                           FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding SelectedOrder.Subtotal, Converter={StaticResource CurrencyFormat}}"
+                                           FontSize="12" Foreground="{StaticResource TextPrimary}"
+                                           HorizontalAlignment="Right"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,6">
+                                <TextBlock Text="{StaticResource str_Tax}"
+                                           FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding SelectedOrder.TaxAmount, Converter={StaticResource CurrencyFormat}}"
+                                           FontSize="12" Foreground="{StaticResource TextPrimary}"
+                                           HorizontalAlignment="Right"/>
+                            </Grid>
+                            <Grid Margin="0,4,0,0">
+                                <TextBlock Text="{StaticResource str_Total}"
+                                           FontSize="16" FontWeight="Bold"
+                                           Foreground="{StaticResource TextPrimary}"/>
+                                <TextBlock Text="{Binding SelectedOrder.Total, Converter={StaticResource CurrencyFormat}}"
+                                           FontSize="16" FontWeight="Bold"
+                                           Foreground="{StaticResource PrimaryBrush}"
+                                           HorizontalAlignment="Right"/>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

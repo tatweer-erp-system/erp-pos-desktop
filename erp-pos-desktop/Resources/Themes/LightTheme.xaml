@@ -1,0 +1,73 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- TatweerPOS Light Theme                                  -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+
+    <!-- Window & Surface Backgrounds -->
+    <SolidColorBrush x:Key="WindowBg"       Color="#F1F5F9" />
+    <SolidColorBrush x:Key="SurfaceBg"      Color="#FFFFFF" />
+    <SolidColorBrush x:Key="CardBg"         Color="#FFFFFF" />
+    <SolidColorBrush x:Key="CardHoverBg"    Color="#F8FAFF" />
+
+    <!-- Input Controls -->
+    <SolidColorBrush x:Key="InputBg"           Color="#FFFFFF" />
+    <SolidColorBrush x:Key="InputBorder"       Color="#CBD5E1" />
+    <SolidColorBrush x:Key="InputBorderFocus"  Color="#6366F1" />
+
+    <!-- Layout Chrome -->
+    <SolidColorBrush x:Key="DividerBrush"  Color="#E2E8F0" />
+    <SolidColorBrush x:Key="SidebarBg"     Color="#1E1B4B" />
+    <SolidColorBrush x:Key="TopBarBg"      Color="#FFFFFF" />
+
+    <!-- Typography -->
+    <SolidColorBrush x:Key="TextPrimary"    Color="#0F172A" />
+    <SolidColorBrush x:Key="TextSecondary"  Color="#475569" />
+    <SolidColorBrush x:Key="TextMuted"      Color="#94A3B8" />
+
+    <!-- Accent / Brand -->
+    <SolidColorBrush x:Key="AccentPrimary"      Color="#6366F1" />
+    <SolidColorBrush x:Key="AccentPrimaryHover"  Color="#4F46E5" />
+    <SolidColorBrush x:Key="AccentSecondary"     Color="#7C3AED" />
+
+    <!-- Status -->
+    <SolidColorBrush x:Key="SuccessBrush"   Color="#16A34A" />
+    <SolidColorBrush x:Key="WarningBrush"   Color="#D97706" />
+    <SolidColorBrush x:Key="ErrorBrush"     Color="#DC2626" />
+    <SolidColorBrush x:Key="InfoBrush"      Color="#2563EB" />
+
+    <!-- Buttons -->
+    <SolidColorBrush x:Key="ButtonPrimaryBg"        Color="#6366F1" />
+    <SolidColorBrush x:Key="ButtonPrimaryHoverBg"    Color="#4F46E5" />
+    <SolidColorBrush x:Key="ButtonPrimaryText"       Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ButtonSecondaryBg"       Color="#E2E8F0" />
+    <SolidColorBrush x:Key="ButtonSecondaryHoverBg"  Color="#CBD5E1" />
+    <SolidColorBrush x:Key="ButtonSecondaryText"     Color="#0F172A" />
+    <SolidColorBrush x:Key="ButtonDangerBg"          Color="#DC2626" />
+    <SolidColorBrush x:Key="ButtonDangerHoverBg"     Color="#B91C1C" />
+    <SolidColorBrush x:Key="ButtonDangerText"        Color="#FFFFFF" />
+
+    <!-- Scrollbar -->
+    <SolidColorBrush x:Key="ScrollbarTrack"  Color="#F1F5F9" />
+    <SolidColorBrush x:Key="ScrollbarThumb"  Color="#CBD5E1" />
+
+    <!-- DataGrid / Table -->
+    <SolidColorBrush x:Key="TableHeaderBg"       Color="#F8FAFC" />
+    <SolidColorBrush x:Key="TableRowAltBg"       Color="#F8FAFC" />
+    <SolidColorBrush x:Key="TableRowHoverBg"     Color="#EEF2FF" />
+    <SolidColorBrush x:Key="TableRowSelectedBg"  Color="#E0E7FF" />
+
+    <!-- Overlay / Modal -->
+    <SolidColorBrush x:Key="OverlayBg"  Color="#000000" Opacity="0.3" />
+    <SolidColorBrush x:Key="ModalBg"    Color="#FFFFFF" />
+
+    <!-- Badge -->
+    <SolidColorBrush x:Key="BadgeBg"    Color="#6366F1" />
+    <SolidColorBrush x:Key="BadgeText"  Color="#FFFFFF" />
+
+    <!-- Tooltip -->
+    <SolidColorBrush x:Key="TooltipBg"    Color="#0F172A" />
+    <SolidColorBrush x:Key="TooltipText"  Color="#F8FAFC" />
+
+</ResourceDictionary>

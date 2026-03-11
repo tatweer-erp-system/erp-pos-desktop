@@ -1,0 +1,312 @@
+<Window x:Class="TatweerPOS.Views.Dialogs.PaymentDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        Width="450" Height="550"
+        ResizeMode="NoResize"
+        Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <!-- Payment method toggle button style -->
+        <Style x:Key="PaymentMethodToggleStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="border"
+                                Background="{StaticResource InputBg}"
+                                BorderBrush="{StaticResource InputBorder}"
+                                BorderThickness="1.5"
+                                CornerRadius="8"
+                                Padding="16,10"
+                                MinWidth="70">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Quick amount button style -->
+        <Style x:Key="QuickAmountButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource CardHoverBg}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="14,8"
+                                MinWidth="65"
+                                RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="scale" ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource InputBorder}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="scale"
+                                                             Storyboard.TargetProperty="ScaleX"
+                                                             To="0.95" Duration="0:0:0.1" AutoReverse="True"/>
+                                            <DoubleAnimation Storyboard.TargetName="scale"
+                                                             Storyboard.TargetProperty="ScaleY"
+                                                             To="0.95" Duration="0:0:0.1" AutoReverse="True"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Cancel button style -->
+        <Style x:Key="DialogCancelButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="44"/>
+            <Setter Property="Background" Value="{StaticResource CardHoverBg}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                Padding="24,0"
+                                RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="scale" ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource InputBorder}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="scale"
+                                                             Storyboard.TargetProperty="ScaleX"
+                                                             To="0.97" Duration="0:0:0.1" AutoReverse="True"/>
+                                            <DoubleAnimation Storyboard.TargetName="scale"
+                                                             Storyboard.TargetProperty="ScaleY"
+                                                             To="0.97" Duration="0:0:0.1" AutoReverse="True"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- Semi-transparent overlay backdrop -->
+    <Border Background="#CC000000" CornerRadius="0">
+        <Grid>
+            <!-- Dialog card -->
+            <Border x:Name="DialogCard"
+                    Width="430" Height="530"
+                    Background="{StaticResource SurfaceBg}"
+                    CornerRadius="16"
+                    RenderTransformOrigin="0.5,0.5"
+                    Opacity="0">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="0.85" ScaleY="0.85"/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" BlurRadius="60" Opacity="0.6" ShadowDepth="0"/>
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="56"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
+                    <Border Grid.Row="0" Background="{StaticResource CardBg}" CornerRadius="16,16,0,0">
+                        <Grid Margin="24,0">
+                            <TextBlock Text="{StaticResource str_Payment}"
+                                       Foreground="{StaticResource TextPrimary}"
+                                       FontSize="18" FontWeight="Bold"
+                                       VerticalAlignment="Center"/>
+                            <Button x:Name="CloseButton" HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource CloseButtonStyle}"
+                                    Click="CloseButton_Click">
+                                <materialDesign:PackIcon Kind="Close" Width="16" Height="16"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <!-- Content -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24,16">
+                        <StackPanel>
+                            <!-- Order Total -->
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{StaticResource str_OrderTotal}"
+                                           Foreground="{StaticResource TextSecondary}"
+                                           FontSize="15" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="OrderTotalText" Grid.Column="1"
+                                           Foreground="{StaticResource TextPrimary}"
+                                           FontSize="22" FontWeight="Bold"
+                                           VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <!-- Divider -->
+                            <Border Height="1" Background="{StaticResource DividerBrush}" Margin="0,8,0,16"/>
+
+                            <!-- Payment Method Label -->
+                            <TextBlock Text="{StaticResource str_PaymentMethodLabel}"
+                                       Foreground="{StaticResource TextSecondary}"
+                                       FontSize="13" Margin="0,0,0,10"/>
+
+                            <!-- Payment Method Buttons -->
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                <RadioButton x:Name="CashRadio" GroupName="PaymentMethod"
+                                             Content="{StaticResource str_PaymentCash}"
+                                             Style="{StaticResource PaymentMethodToggleStyle}"
+                                             IsChecked="True" Margin="0,0,8,0"
+                                             Checked="PaymentMethod_Changed"/>
+                                <RadioButton x:Name="CardRadio" GroupName="PaymentMethod"
+                                             Content="{StaticResource str_PaymentCard}"
+                                             Style="{StaticResource PaymentMethodToggleStyle}"
+                                             Margin="0,0,8,0"
+                                             Checked="PaymentMethod_Changed"/>
+                                <RadioButton x:Name="MobileRadio" GroupName="PaymentMethod"
+                                             Content="{StaticResource str_PaymentMobile}"
+                                             Style="{StaticResource PaymentMethodToggleStyle}"
+                                             Margin="0,0,8,0"
+                                             Checked="PaymentMethod_Changed"/>
+                                <RadioButton x:Name="SplitRadio" GroupName="PaymentMethod"
+                                             Content="{StaticResource str_PaymentSplit}"
+                                             Style="{StaticResource PaymentMethodToggleStyle}"
+                                             Checked="PaymentMethod_Changed"/>
+                            </StackPanel>
+
+                            <!-- Amount Tendered Section (visible only for Cash) -->
+                            <StackPanel x:Name="CashSection">
+                                <TextBlock Text="{StaticResource str_AmountTendered}"
+                                           Foreground="{StaticResource TextSecondary}"
+                                           FontSize="13" Margin="0,0,0,8"/>
+                                <TextBox x:Name="AmountTenderedInput"
+                                         Style="{StaticResource DarkInputStyle}"
+                                         FontSize="18" FontWeight="Bold"
+                                         Height="48"
+                                         TextChanged="AmountTendered_TextChanged"/>
+
+                                <!-- Quick Amount Buttons -->
+                                <TextBlock Text="{StaticResource str_QuickAmounts}"
+                                           Foreground="{StaticResource TextMuted}"
+                                           FontSize="12" Margin="0,14,0,8"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                    <Button Content="$50" Tag="50"
+                                            Style="{StaticResource QuickAmountButtonStyle}"
+                                            Margin="0,0,8,0" Click="QuickAmount_Click"/>
+                                    <Button Content="$100" Tag="100"
+                                            Style="{StaticResource QuickAmountButtonStyle}"
+                                            Margin="0,0,8,0" Click="QuickAmount_Click"/>
+                                    <Button Content="$200" Tag="200"
+                                            Style="{StaticResource QuickAmountButtonStyle}"
+                                            Margin="0,0,8,0" Click="QuickAmount_Click"/>
+                                    <Button Content="{StaticResource str_Exact}" Tag="exact"
+                                            Style="{StaticResource QuickAmountButtonStyle}"
+                                            Click="QuickAmount_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <!-- Divider -->
+                            <Border Height="1" Background="{StaticResource DividerBrush}" Margin="0,18,0,14"/>
+
+                            <!-- Change Due -->
+                            <Grid x:Name="ChangeSection">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{StaticResource str_ChangeDue}"
+                                           Foreground="{StaticResource TextSecondary}"
+                                           FontSize="15" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="ChangeAmountText" Grid.Column="1"
+                                           Foreground="{StaticResource SuccessBrush}"
+                                           FontSize="28" FontWeight="Bold"
+                                           VerticalAlignment="Center"
+                                           Text="$0.00"/>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- Footer Buttons -->
+                    <Border Grid.Row="2" Background="{StaticResource CardBg}" CornerRadius="0,0,16,16">
+                        <Grid Margin="24,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="CancelButton"
+                                    Content="{StaticResource str_Cancel}"
+                                    Style="{StaticResource DialogCancelButtonStyle}"
+                                    HorizontalAlignment="Left"
+                                    Click="CancelButton_Click"/>
+                            <Button x:Name="CompleteButton" Grid.Column="1"
+                                    Content="{StaticResource str_CompletePayment}"
+                                    Style="{StaticResource PrimaryButtonStyle}"
+                                    Height="44"
+                                    HorizontalAlignment="Right"
+                                    IsEnabled="False"
+                                    Click="CompleteButton_Click"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

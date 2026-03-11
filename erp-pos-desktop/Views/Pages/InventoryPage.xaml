@@ -1,0 +1,359 @@
+<UserControl x:Class="TatweerPOS.Views.Pages.InventoryPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:components="clr-namespace:TatweerPOS.Components"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="1200">
+
+    <Grid Background="{StaticResource SurfaceBg}" Margin="24,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>  <!-- Header + stats -->
+            <RowDefinition Height="Auto"/>  <!-- Filters -->
+            <RowDefinition Height="*"/>     <!-- Content -->
+        </Grid.RowDefinitions>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- HEADER — Title + Stats Cards                                   -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <StackPanel x:Name="HeaderSection" Grid.Row="0" Margin="0,0,0,16">
+            <!-- Title row -->
+            <Grid Margin="0,0,0,16">
+                <TextBlock Text="{StaticResource str_Inventory}"
+                           FontSize="24" FontWeight="Bold"
+                           Foreground="{StaticResource TextPrimary}"
+                           VerticalAlignment="Center"/>
+                <!-- Add product button (role-based) -->
+                <Button Style="{StaticResource PrimaryButtonStyle}"
+                        Height="40" HorizontalAlignment="Right"
+                        Command="{Binding AddProductCommand}"
+                        Visibility="{Binding CanEditInventory, Converter={StaticResource BoolToVisibility}}"
+                        Cursor="Hand">
+                    <StackPanel Orientation="Horizontal" Margin="16,0">
+                        <materialDesign:PackIcon Kind="Plus" Width="18" Height="18"
+                                                 Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="{StaticResource str_AddProduct}"
+                                   FontSize="13" FontWeight="SemiBold"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <!-- Stats cards -->
+            <StackPanel Orientation="Horizontal">
+                <!-- Total Products -->
+                <Border Background="{StaticResource CardBg}"
+                        CornerRadius="12" Padding="20,14"
+                        Margin="0,0,12,0" MinWidth="180">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="40" Height="40" CornerRadius="10"
+                                Background="{StaticResource PrimaryBrush}" Opacity="0.15">
+                            <materialDesign:PackIcon Kind="PackageVariantClosed" Width="20" Height="20"
+                                                     Foreground="{StaticResource PrimaryBrush}"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding TotalProductCount}"
+                                       FontSize="20" FontWeight="Bold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                            <TextBlock Text="{StaticResource str_TotalProducts}"
+                                       FontSize="11" Foreground="{StaticResource TextMuted}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Low Stock -->
+                <Border Background="{StaticResource CardBg}"
+                        CornerRadius="12" Padding="20,14"
+                        Margin="0,0,12,0" MinWidth="180">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="40" Height="40" CornerRadius="10"
+                                Background="{StaticResource WarningBrush}" Opacity="0.15">
+                            <materialDesign:PackIcon Kind="AlertCircleOutline" Width="20" Height="20"
+                                                     Foreground="{StaticResource WarningBrush}"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding LowStockCount}"
+                                       FontSize="20" FontWeight="Bold"
+                                       Foreground="{StaticResource WarningBrush}"/>
+                            <TextBlock Text="{StaticResource str_LowStock}"
+                                       FontSize="11" Foreground="{StaticResource TextMuted}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Out of Stock -->
+                <Border Background="{StaticResource CardBg}"
+                        CornerRadius="12" Padding="20,14"
+                        MinWidth="180">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="40" Height="40" CornerRadius="10"
+                                Background="{StaticResource ErrorBrush}" Opacity="0.15">
+                            <materialDesign:PackIcon Kind="PackageVariantRemove" Width="20" Height="20"
+                                                     Foreground="{StaticResource ErrorBrush}"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding OutOfStockCount}"
+                                       FontSize="20" FontWeight="Bold"
+                                       Foreground="{StaticResource ErrorBrush}"/>
+                            <TextBlock Text="{StaticResource str_OutOfStock}"
+                                       FontSize="11" Foreground="{StaticResource TextMuted}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- FILTERS ROW                                                    -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid x:Name="FiltersRow" Grid.Row="1" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MaxWidth="360"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <components:SearchBox Grid.Column="0"
+                                  SearchText="{Binding SearchText, Mode=TwoWay}"
+                                  Placeholder="{StaticResource str_SearchPlaceholder}"/>
+
+            <ComboBox Grid.Column="2"
+                      Style="{StaticResource DarkComboStyle}"
+                      Width="180" Height="44"
+                      ItemsSource="{Binding CategoryFilters}"
+                      SelectedItem="{Binding SelectedCategoryFilter}"
+                      DisplayMemberPath="Name"
+                      materialDesign:HintAssist.Hint="{StaticResource str_AllCategories}"/>
+
+            <ComboBox Grid.Column="4"
+                      Style="{StaticResource DarkComboStyle}"
+                      Width="180" Height="44"
+                      ItemsSource="{Binding BusinessModes}"
+                      SelectedItem="{Binding SelectedBusinessMode}"
+                      DisplayMemberPath="Name"
+                      materialDesign:HintAssist.Hint="{StaticResource str_BusinessMode}"/>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- CONTENT — Product List + Detail Panel                          -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid x:Name="ContentArea" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>  <!-- Detail panel -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Loading skeleton -->
+            <StackPanel Grid.Column="0"
+                        Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibility}}">
+                <components:LoadingSkeleton SkeletonWidth="0" SkeletonHeight="48"
+                                             SkeletonCornerRadius="8" Margin="0,0,0,8"/>
+                <components:LoadingSkeleton SkeletonWidth="0" SkeletonHeight="48"
+                                             SkeletonCornerRadius="8" Margin="0,0,0,8"/>
+                <components:LoadingSkeleton SkeletonWidth="0" SkeletonHeight="48"
+                                             SkeletonCornerRadius="8" Margin="0,0,0,8"/>
+                <components:LoadingSkeleton SkeletonWidth="0" SkeletonHeight="48"
+                                             SkeletonCornerRadius="8" Margin="0,0,0,8"/>
+                <components:LoadingSkeleton SkeletonWidth="0" SkeletonHeight="48"
+                                             SkeletonCornerRadius="8" Margin="0,0,0,8"/>
+            </StackPanel>
+
+            <!-- Empty state -->
+            <components:EmptyState Grid.Column="0"
+                                    Icon="PackageVariantClosed"
+                                    Title="{StaticResource str_NoProducts}"
+                                    Subtitle="{StaticResource str_NoResults}"
+                                    Visibility="{Binding ShowEmptyState, Converter={StaticResource BoolToVisibility}}"/>
+
+            <!-- Products table -->
+            <Border Grid.Column="0"
+                    Background="{StaticResource CardBg}"
+                    CornerRadius="12"
+                    Visibility="{Binding IsLoading, Converter={StaticResource InverseBoolToVisibility}}">
+                <DataGrid ItemsSource="{Binding FilteredProducts}"
+                          SelectedItem="{Binding SelectedProduct}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserResizeRows="False"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="{StaticResource DividerBrush}"
+                          Background="Transparent"
+                          Foreground="{StaticResource TextPrimary}"
+                          RowBackground="Transparent"
+                          AlternatingRowBackground="Transparent"
+                          BorderThickness="0"
+                          FontSize="13"
+                          materialDesign:DataGridAssist.CellPadding="16,10"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="16,12"
+                          Cursor="Hand">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{StaticResource str_ProductName}"
+                                            Binding="{Binding Name}" Width="*"
+                                            FontWeight="SemiBold"/>
+                        <DataGridTextColumn Header="{StaticResource str_SKU}"
+                                            Binding="{Binding SKU}" Width="120"/>
+                        <DataGridTextColumn Header="{StaticResource str_Category}"
+                                            Binding="{Binding Category}" Width="130"/>
+                        <DataGridTextColumn Header="{StaticResource str_Price}"
+                                            Binding="{Binding Price, Converter={StaticResource CurrencyFormat}}"
+                                            Width="100"/>
+                        <DataGridTemplateColumn Header="{StaticResource str_Stock}" Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="6" Padding="8,3"
+                                            Background="{Binding Stock, Converter={StaticResource StatusToColor}}"
+                                            HorizontalAlignment="Left">
+                                        <TextBlock Text="{Binding StockDisplay}"
+                                                   FontSize="11" FontWeight="Bold"
+                                                   Foreground="White"/>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="{StaticResource str_BusinessMode}"
+                                            Binding="{Binding BusinessMode, Converter={StaticResource EnumToString}}"
+                                            Width="120"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <!-- Detail panel (slide-in from right) -->
+            <Border Grid.Column="1"
+                    Width="340"
+                    Background="{StaticResource CardBg}"
+                    CornerRadius="12"
+                    Margin="16,0,0,0"
+                    Padding="20"
+                    Visibility="{Binding SelectedProduct, Converter={StaticResource NullToVisibility}}">
+                <DockPanel>
+                    <!-- Close button -->
+                    <Grid DockPanel.Dock="Top" Margin="0,0,0,16">
+                        <TextBlock Text="{StaticResource str_Details}"
+                                   FontSize="16" FontWeight="Bold"
+                                   Foreground="{StaticResource TextPrimary}"
+                                   VerticalAlignment="Center"/>
+                        <Button Style="{StaticResource TitleBarButtonStyle}"
+                                Width="28" Height="28"
+                                HorizontalAlignment="Right"
+                                Command="{Binding CloseDetailCommand}"
+                                Cursor="Hand">
+                            <materialDesign:PackIcon Kind="Close" Width="16" Height="16"
+                                                     Foreground="{StaticResource TextMuted}"/>
+                        </Button>
+                    </Grid>
+
+                    <Border DockPanel.Dock="Top" Height="1"
+                            Background="{StaticResource DividerBrush}" Margin="0,0,0,16"/>
+
+                    <!-- Stock adjustment (role-based) -->
+                    <Border DockPanel.Dock="Bottom"
+                            Margin="0,16,0,0"
+                            Visibility="{Binding CanEditInventory, Converter={StaticResource BoolToVisibility}}">
+                        <StackPanel>
+                            <TextBlock Text="{StaticResource str_StockAdjustment}"
+                                       FontSize="13" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextPrimary}"
+                                       Margin="0,0,0,8"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Style="{StaticResource TitleBarButtonStyle}"
+                                        Width="40" Height="40"
+                                        Command="{Binding DecreaseStockCommand}"
+                                        Cursor="Hand">
+                                    <materialDesign:PackIcon Kind="Minus" Width="20" Height="20"
+                                                             Foreground="{StaticResource ErrorBrush}"/>
+                                </Button>
+                                <TextBlock Text="{Binding SelectedProduct.Stock}"
+                                           FontSize="24" FontWeight="Bold"
+                                           Foreground="{StaticResource TextPrimary}"
+                                           VerticalAlignment="Center"
+                                           Margin="20,0"
+                                           MinWidth="50" TextAlignment="Center"/>
+                                <Button Style="{StaticResource TitleBarButtonStyle}"
+                                        Width="40" Height="40"
+                                        Command="{Binding IncreaseStockCommand}"
+                                        Cursor="Hand">
+                                    <materialDesign:PackIcon Kind="Plus" Width="20" Height="20"
+                                                             Foreground="{StaticResource SuccessBrush}"/>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Product info -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <!-- Product emoji/image -->
+                            <Border Width="64" Height="64" CornerRadius="16"
+                                    Background="{StaticResource InputBg}"
+                                    HorizontalAlignment="Center" Margin="0,0,0,12">
+                                <TextBlock Text="{Binding SelectedProduct.Emoji}"
+                                           FontSize="32"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="{Binding SelectedProduct.Name}"
+                                       FontSize="16" FontWeight="Bold"
+                                       Foreground="{StaticResource TextPrimary}"
+                                       HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Margin="0,0,0,4"/>
+                            <TextBlock Text="{Binding SelectedProduct.SKU}"
+                                       FontSize="12" Foreground="{StaticResource TextMuted}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,0,0,16"/>
+
+                            <!-- Detail rows -->
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="{StaticResource str_Category}"
+                                           FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding SelectedProduct.Category}"
+                                           FontSize="12" Foreground="{StaticResource TextPrimary}"
+                                           HorizontalAlignment="Right"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="{StaticResource str_Price}"
+                                           FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding SelectedProduct.Price, Converter={StaticResource CurrencyFormat}}"
+                                           FontSize="12" FontWeight="Bold"
+                                           Foreground="{StaticResource PrimaryBrush}"
+                                           HorizontalAlignment="Right"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="{StaticResource str_CostPrice}"
+                                           FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding SelectedProduct.CostPrice, Converter={StaticResource CurrencyFormat}}"
+                                           FontSize="12" Foreground="{StaticResource TextPrimary}"
+                                           HorizontalAlignment="Right"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="{StaticResource str_MinStock}"
+                                           FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding SelectedProduct.MinStock}"
+                                           FontSize="12" Foreground="{StaticResource TextPrimary}"
+                                           HorizontalAlignment="Right"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="{StaticResource str_Barcode}"
+                                           FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock Text="{Binding SelectedProduct.Barcode}"
+                                           FontSize="12" Foreground="{StaticResource TextPrimary}"
+                                           HorizontalAlignment="Right"/>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

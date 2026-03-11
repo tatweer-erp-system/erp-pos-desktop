@@ -1,0 +1,25 @@
+<UserControl x:Class="TatweerPOS.Components.LoadingSkeleton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="Root">
+
+    <Border x:Name="SkeletonBorder"
+            Height="{Binding SkeletonHeight, ElementName=Root}"
+            Width="{Binding SkeletonWidth, ElementName=Root}"
+            CornerRadius="{Binding SkeletonCornerRadius, ElementName=Root}"
+            ClipToBounds="True"
+            Background="{StaticResource CardBg}">
+
+        <!-- Shimmer overlay -->
+        <Border x:Name="ShimmerOverlay">
+            <Border.Background>
+                <LinearGradientBrush x:Name="ShimmerBrush"
+                                     StartPoint="0,0.5" EndPoint="1,0.5">
+                    <GradientStop x:Name="GradStop0" Color="Transparent" Offset="-1"/>
+                    <GradientStop x:Name="GradStop1" Color="#15FFFFFF" Offset="-0.5"/>
+                    <GradientStop x:Name="GradStop2" Color="Transparent" Offset="0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+    </Border>
+</UserControl>

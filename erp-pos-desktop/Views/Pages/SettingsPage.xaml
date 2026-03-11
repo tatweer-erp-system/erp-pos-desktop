@@ -1,0 +1,519 @@
+<UserControl x:Class="TatweerPOS.Views.Pages.SettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:components="clr-namespace:TatweerPOS.Components">
+
+    <Grid Background="{StaticResource WindowBg}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ═══ Header Section ═══ -->
+        <Border x:Name="HeaderSection" Grid.Row="0" Padding="24,20,24,16">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <materialDesign:PackIcon Kind="Cog" Width="28" Height="28"
+                                         Foreground="{StaticResource PrimaryBrush}"
+                                         VerticalAlignment="Center" Margin="0,0,12,0"/>
+                <TextBlock Text="{StaticResource str_Settings}"
+                           FontSize="24" FontWeight="Bold"
+                           Foreground="{StaticResource TextPrimary}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <!-- ═══ Content Area ═══ -->
+        <ScrollViewer x:Name="ContentArea" Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto" Padding="24,0,24,24">
+            <StackPanel x:Name="SettingsSections">
+
+                <!-- ════════════════════════════════════════════════ -->
+                <!-- GENERAL Section                                 -->
+                <!-- ════════════════════════════════════════════════ -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="24,20" Margin="0,0,0,16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <materialDesign:PackIcon Kind="StoreOutline" Width="22" Height="22"
+                                                     Foreground="{StaticResource PrimaryBrush}"
+                                                     VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock Text="{StaticResource str_General}"
+                                       FontSize="17" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                        </StackPanel>
+
+                        <Border Height="1" Background="{StaticResource DividerBrush}"
+                                Margin="0,0,0,16"/>
+
+                        <!-- Business Mode -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_BusinessMode}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <ComboBox x:Name="BusinessModeCombo" Grid.Column="1"
+                                      Style="{StaticResource DarkComboStyle}"
+                                      Height="40" MaxWidth="300" HorizontalAlignment="Left">
+                                <ComboBoxItem Content="Retail"/>
+                                <ComboBoxItem Content="Restaurant"/>
+                                <ComboBoxItem Content="Pharmacy"/>
+                                <ComboBoxItem Content="Supermarket"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <!-- Branch Name -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_Branch}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock x:Name="BranchNameText"
+                                       Grid.Column="1" FontSize="14"
+                                       Foreground="{StaticResource TextPrimary}"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <!-- Branch Address -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_Address}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock x:Name="BranchAddressText"
+                                       Grid.Column="1" FontSize="14"
+                                       Foreground="{StaticResource TextPrimary}"
+                                       VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        </Grid>
+
+                        <!-- Branch Phone -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_Phone}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock x:Name="BranchPhoneText"
+                                       Grid.Column="1" FontSize="14"
+                                       Foreground="{StaticResource TextPrimary}"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <!-- Tax Number -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_TaxRate}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock x:Name="TaxNumberText"
+                                       Grid.Column="1" FontSize="14"
+                                       Foreground="{StaticResource TextPrimary}"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- ════════════════════════════════════════════════ -->
+                <!-- APPEARANCE Section                              -->
+                <!-- ════════════════════════════════════════════════ -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="24,20" Margin="0,0,0,16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <materialDesign:PackIcon Kind="Palette" Width="22" Height="22"
+                                                     Foreground="{StaticResource PrimaryBrush}"
+                                                     VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock Text="{StaticResource str_Theme}"
+                                       FontSize="17" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                        </StackPanel>
+
+                        <Border Height="1" Background="{StaticResource DividerBrush}"
+                                Margin="0,0,0,16"/>
+
+                        <!-- Theme Toggle -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_DarkMode}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="WhiteBalanceSunny" Width="18" Height="18"
+                                                         Foreground="{StaticResource TextMuted}"
+                                                         VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <ToggleButton x:Name="ThemeToggle"
+                                              Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                              IsChecked="True"
+                                              Click="OnThemeToggleClick"/>
+                                <materialDesign:PackIcon Kind="MoonWaningCrescent" Width="18" Height="18"
+                                                         Foreground="{StaticResource TextMuted}"
+                                                         VerticalAlignment="Center" Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Language Toggle -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_Language}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <ToggleButton x:Name="LangEnBtn" Content="EN"
+                                              Style="{StaticResource LangToggleStyle}"
+                                              IsChecked="True" Margin="0,0,6,0"
+                                              Click="OnLanguageToggleClick"/>
+                                <ToggleButton x:Name="LangArBtn" Content="AR"
+                                              Style="{StaticResource LangToggleStyle}"
+                                              Click="OnLanguageToggleClick"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- ════════════════════════════════════════════════ -->
+                <!-- POS Section                                     -->
+                <!-- ════════════════════════════════════════════════ -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="24,20" Margin="0,0,0,16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <materialDesign:PackIcon Kind="CashRegister" Width="22" Height="22"
+                                                     Foreground="{StaticResource PrimaryBrush}"
+                                                     VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock Text="{StaticResource str_POS}"
+                                       FontSize="17" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                        </StackPanel>
+
+                        <Border Height="1" Background="{StaticResource DividerBrush}"
+                                Margin="0,0,0,16"/>
+
+                        <!-- Receipt Header -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_ReceiptHeader}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Top" Margin="0,10,0,0"/>
+                            <TextBox x:Name="ReceiptHeaderInput" Grid.Column="1"
+                                     Style="{StaticResource DarkInputStyle}"
+                                     Height="60" MaxWidth="400" HorizontalAlignment="Left"
+                                     TextWrapping="Wrap" AcceptsReturn="True"
+                                     VerticalContentAlignment="Top" Padding="10"/>
+                        </Grid>
+
+                        <!-- Receipt Footer -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_ReceiptFooter}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Top" Margin="0,10,0,0"/>
+                            <TextBox x:Name="ReceiptFooterInput" Grid.Column="1"
+                                     Style="{StaticResource DarkInputStyle}"
+                                     Height="60" MaxWidth="400" HorizontalAlignment="Left"
+                                     TextWrapping="Wrap" AcceptsReturn="True"
+                                     VerticalContentAlignment="Top" Padding="10"/>
+                        </Grid>
+
+                        <!-- Auto-lock Timeout -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_SessionTimeout}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <TextBox x:Name="TimeoutInput" Style="{StaticResource DarkInputStyle}"
+                                         Width="80" Height="40" Padding="10,0"
+                                         HorizontalContentAlignment="Center"/>
+                                <TextBlock Text="min" FontSize="13"
+                                           Foreground="{StaticResource TextMuted}"
+                                           VerticalAlignment="Center" Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Default Printer -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_PrinterName}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <ComboBox x:Name="PrinterCombo" Grid.Column="1"
+                                      Style="{StaticResource DarkComboStyle}"
+                                      Height="40" MaxWidth="300" HorizontalAlignment="Left"/>
+                        </Grid>
+
+                        <!-- Save POS Settings -->
+                        <Button Content="{StaticResource str_Save}"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Height="38" Width="120" HorizontalAlignment="Left"
+                                Click="OnSavePosSettingsClick"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ════════════════════════════════════════════════ -->
+                <!-- SYNC Section                                    -->
+                <!-- ════════════════════════════════════════════════ -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="24,20" Margin="0,0,0,16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <materialDesign:PackIcon Kind="CloudSync" Width="22" Height="22"
+                                                     Foreground="{StaticResource PrimaryBrush}"
+                                                     VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock Text="{StaticResource str_Sync}"
+                                       FontSize="17" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                        </StackPanel>
+
+                        <Border Height="1" Background="{StaticResource DividerBrush}"
+                                Margin="0,0,0,16"/>
+
+                        <!-- Enable Sync -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_Sync}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <ToggleButton x:Name="SyncEnabledToggle" Grid.Column="1"
+                                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                          IsChecked="True"
+                                          HorizontalAlignment="Left"/>
+                        </Grid>
+
+                        <!-- Sync Interval -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_SessionTimeout}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <TextBox x:Name="SyncIntervalInput"
+                                         Style="{StaticResource DarkInputStyle}"
+                                         Width="80" Height="40" Padding="10,0"
+                                         HorizontalContentAlignment="Center"/>
+                                <TextBlock Text="min" FontSize="13"
+                                           Foreground="{StaticResource TextMuted}"
+                                           VerticalAlignment="Center" Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Sync Status -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_SyncStatus}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <Border x:Name="SyncStatusDot" Width="10" Height="10"
+                                        CornerRadius="5" Margin="0,0,8,0"
+                                        Background="{StaticResource SuccessBrush}"
+                                        VerticalAlignment="Center"/>
+                                <TextBlock x:Name="SyncStatusText"
+                                           Text="{StaticResource str_Synced}"
+                                           FontSize="14" Foreground="{StaticResource TextPrimary}"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Manual Sync Button -->
+                        <Button Content="{StaticResource str_SyncNow}"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Height="38" Width="140" HorizontalAlignment="Left"
+                                Click="OnSyncNowClick"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ════════════════════════════════════════════════ -->
+                <!-- LICENSE Section                                 -->
+                <!-- ════════════════════════════════════════════════ -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="24,20" Margin="0,0,0,16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <materialDesign:PackIcon Kind="License" Width="22" Height="22"
+                                                     Foreground="{StaticResource PrimaryBrush}"
+                                                     VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock Text="{StaticResource str_License}"
+                                       FontSize="17" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                        </StackPanel>
+
+                        <Border Height="1" Background="{StaticResource DividerBrush}"
+                                Margin="0,0,0,16"/>
+
+                        <!-- Machine Fingerprint (read-only) -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_MachineFingerprint}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <Border Grid.Column="1" Background="{StaticResource SurfaceBg}"
+                                    CornerRadius="8" Padding="12,8"
+                                    HorizontalAlignment="Left">
+                                <TextBlock x:Name="FingerprintText"
+                                           FontSize="13" FontFamily="Consolas"
+                                           Foreground="{StaticResource TextMuted}"/>
+                            </Border>
+                        </Grid>
+
+                        <!-- License Key Input -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_LicenseKey}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <TextBox x:Name="LicenseKeyInput" Grid.Column="1"
+                                     Style="{StaticResource DarkInputStyle}"
+                                     Height="40" MaxWidth="400" HorizontalAlignment="Left"
+                                     Padding="10,0" FontFamily="Consolas"/>
+                        </Grid>
+
+                        <!-- License Status -->
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource str_Status}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <Border x:Name="LicenseStatusDot" Width="10" Height="10"
+                                        CornerRadius="5" Margin="0,0,8,0"
+                                        Background="{StaticResource WarningBrush}"
+                                        VerticalAlignment="Center"/>
+                                <TextBlock x:Name="LicenseStatusText"
+                                           Text="{StaticResource str_Pending}"
+                                           FontSize="14" Foreground="{StaticResource TextPrimary}"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Validate Button -->
+                        <Button Content="{StaticResource str_Activate}"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Height="38" Width="140" HorizontalAlignment="Left"
+                                Click="OnValidateLicenseClick"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ════════════════════════════════════════════════ -->
+                <!-- ADVANCED Section                                -->
+                <!-- ════════════════════════════════════════════════ -->
+                <Border Background="{StaticResource CardBg}" CornerRadius="12"
+                        Padding="24,20" Margin="0,0,0,16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <materialDesign:PackIcon Kind="WrenchOutline" Width="22" Height="22"
+                                                     Foreground="{StaticResource PrimaryBrush}"
+                                                     VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock Text="{StaticResource str_Advanced}"
+                                       FontSize="17" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                        </StackPanel>
+
+                        <Border Height="1" Background="{StaticResource DividerBrush}"
+                                Margin="0,0,0,16"/>
+
+                        <WrapPanel>
+                            <!-- Clear Cache -->
+                            <Button Style="{StaticResource PrimaryButtonStyle}"
+                                    Height="40" Padding="20,0" Margin="0,0,12,8"
+                                    Click="OnClearCacheClick">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="DeleteSweep" Width="18" Height="18"
+                                                             VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                    <TextBlock Text="{StaticResource str_ClearCache}"
+                                               VerticalAlignment="Center" FontSize="13"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Backup Data -->
+                            <Button Style="{StaticResource PrimaryButtonStyle}"
+                                    Height="40" Padding="20,0" Margin="0,0,12,8"
+                                    Click="OnBackupClick">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="DatabaseExport" Width="18" Height="18"
+                                                             VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                    <TextBlock Text="{StaticResource str_Backup}"
+                                               VerticalAlignment="Center" FontSize="13"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Restore Backup -->
+                            <Button Style="{StaticResource PrimaryButtonStyle}"
+                                    Height="40" Padding="20,0" Margin="0,0,12,8"
+                                    Click="OnRestoreClick">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="DatabaseImport" Width="18" Height="18"
+                                                             VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                    <TextBlock Text="{StaticResource str_Restore}"
+                                               VerticalAlignment="Center" FontSize="13"/>
+                                </StackPanel>
+                            </Button>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- ═══ App Version ═══ -->
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,8,0,24">
+                    <TextBlock Text="{StaticResource str_Version}"
+                               FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                    <TextBlock Text=" 1.0.0 — "
+                               FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                    <TextBlock Text="{StaticResource str_PoweredBy}"
+                               FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

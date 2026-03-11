@@ -1,0 +1,472 @@
+<Window x:Class="TatweerPOS.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:converters="clr-namespace:TatweerPOS.Converters"
+        xmlns:vm="clr-namespace:TatweerPOS.ViewModels"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        Width="1100" Height="680"
+        MinWidth="900" MinHeight="600"
+        ResizeMode="CanResize"
+        Title="Tatweer POS - Login"
+        KeyDown="Window_KeyDown">
+
+    <Window.DataContext>
+        <vm:LoginViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVis"/>
+        <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVis"/>
+        <converters:InverseBoolConverter x:Key="InverseBool"/>
+    </Window.Resources>
+
+    <!-- Main border with shadow -->
+    <Border CornerRadius="16" Background="{StaticResource WindowBg}" ClipToBounds="True">
+        <Border.Effect>
+            <DropShadowEffect Color="#000000" BlurRadius="40" Opacity="0.8" ShadowDepth="0"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- ===== CUSTOM TITLE BAR ===== -->
+            <Border Grid.Row="0" Background="Transparent" MouseDown="TitleBar_MouseDown">
+                <Grid Margin="16,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border Width="20" Height="20" CornerRadius="4"
+                                Background="{StaticResource PrimaryGradient}">
+                            <TextBlock Text="T" FontSize="10" FontWeight="Bold" Foreground="White"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Tatweer POS" FontSize="12" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextSecondary}"
+                                   Margin="8,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Style="{StaticResource TitleBarButtonStyle}" Click="MinimizeButton_Click">
+                            <materialDesign:PackIcon Kind="WindowMinimize" Width="14" Height="14"/>
+                        </Button>
+                        <Button Style="{StaticResource CloseButtonStyle}" Click="CloseButton_Click" Margin="4,0,0,0">
+                            <materialDesign:PackIcon Kind="Close" Width="14" Height="14"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- ===== MAIN CONTENT ===== -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="420"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- ===== LEFT PANEL — Login Form ===== -->
+                <Border Grid.Column="0" Background="{StaticResource WindowBg}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <Grid x:Name="FormGrid" Margin="48,8,48,24">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- A. Language Switcher -->
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <ToggleButton x:Name="EnToggle" Content="EN"
+                                              Style="{StaticResource LangToggleStyle}"
+                                              IsChecked="True" Click="EnToggle_Click"/>
+                                <ToggleButton x:Name="ArToggle" Content="AR"
+                                              Style="{StaticResource LangToggleStyle}"
+                                              Margin="4,0,0,0" Click="ArToggle_Click"/>
+                            </StackPanel>
+
+                            <!-- B. Logo & Welcome -->
+                            <StackPanel Grid.Row="1" HorizontalAlignment="Center" Margin="0,16,0,32">
+                                <Border Width="56" Height="56" CornerRadius="16"
+                                        Background="{StaticResource PrimaryGradient}"
+                                        HorizontalAlignment="Center">
+                                    <TextBlock Text="T" FontSize="24" FontWeight="Bold" Foreground="White"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Tatweer POS" FontSize="26" FontWeight="Bold"
+                                           Foreground="{StaticResource TextPrimary}"
+                                           HorizontalAlignment="Center" Margin="0,16,0,4"/>
+                                <TextBlock Text="Welcome back! Please sign in to continue."
+                                           FontSize="13" Foreground="{StaticResource TextSecondary}"
+                                           TextWrapping="Wrap" TextAlignment="Center"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!-- C. Error Banner -->
+                            <Border x:Name="ErrorBanner" Grid.Row="2" Margin="0,0,0,20"
+                                    Visibility="{Binding HasError, Converter={StaticResource BoolToVis}}"
+                                    Background="{StaticResource ErrorBgBrush}"
+                                    BorderBrush="{StaticResource ErrorBorderBrush}"
+                                    BorderThickness="1" CornerRadius="8" Padding="12,10">
+                                <Border.RenderTransform>
+                                    <TranslateTransform/>
+                                </Border.RenderTransform>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="AlertCircle"
+                                                             Foreground="{StaticResource ErrorBrush}"
+                                                             Width="16" Height="16" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding ErrorMessage}"
+                                               Foreground="{StaticResource ErrorBrush}"
+                                               FontSize="12" Margin="8,0,0,0"
+                                               VerticalAlignment="Center" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- D. Branch Selector -->
+                            <StackPanel Grid.Row="3">
+                                <TextBlock Text="Branch" FontSize="12" FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6"/>
+                                <ComboBox Style="{StaticResource DarkComboStyle}"
+                                          ItemsSource="{Binding Branches}"
+                                          SelectedItem="{Binding SelectedBranch}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="0,2">
+                                                <materialDesign:PackIcon Kind="StorefrontOutline"
+                                                                         Width="16" Height="16"
+                                                                         Foreground="{StaticResource PrimaryBrush}"
+                                                                         VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                                <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold"
+                                                           Foreground="{StaticResource TextPrimary}" VerticalAlignment="Center"/>
+                                                <TextBlock Text=" — " Foreground="{StaticResource TextMuted}"
+                                                           FontSize="12" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Location}" FontSize="12"
+                                                           Foreground="{StaticResource TextSecondary}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <!-- E. Email Field -->
+                            <StackPanel Grid.Row="4" Margin="0,16,0,0">
+                                <TextBlock Text="Email Address" FontSize="12" FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6"/>
+                                <Grid>
+                                    <TextBox x:Name="EmailTextBox" Style="{StaticResource DarkInputStyle}"
+                                             Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}">
+                                        <TextBox.RenderTransform>
+                                            <TranslateTransform/>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+                                    <materialDesign:PackIcon Kind="EmailOutline" Width="18" Height="18"
+                                                             Foreground="{StaticResource TextMuted}"
+                                                             VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                             Margin="14,0,0,0" IsHitTestVisible="False"/>
+                                    <materialDesign:PackIcon Kind="CheckCircle" Width="18" Height="18"
+                                                             Foreground="{StaticResource SuccessBrush}"
+                                                             VerticalAlignment="Center" HorizontalAlignment="Right"
+                                                             Margin="0,0,12,0" IsHitTestVisible="False"
+                                                             Visibility="{Binding IsEmailValid, Converter={StaticResource BoolToVis}}"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <!-- F. Password Field -->
+                            <StackPanel Grid.Row="5" Margin="0,16,0,0">
+                                <TextBlock Text="Password" FontSize="12" FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6"/>
+                                <Grid>
+                                    <PasswordBox x:Name="PasswordField"
+                                                 Style="{StaticResource DarkPasswordStyle}"
+                                                 PasswordChanged="PasswordBox_PasswordChanged"
+                                                 Visibility="{Binding IsPasswordVisible, Converter={StaticResource InverseBoolToVis}}">
+                                        <PasswordBox.RenderTransform>
+                                            <TranslateTransform/>
+                                        </PasswordBox.RenderTransform>
+                                    </PasswordBox>
+                                    <TextBox x:Name="PasswordVisibleField"
+                                             Style="{StaticResource DarkInputStyle}"
+                                             Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                                             Padding="44,0,44,0"
+                                             Visibility="{Binding IsPasswordVisible, Converter={StaticResource BoolToVis}}">
+                                        <TextBox.RenderTransform>
+                                            <TranslateTransform/>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+                                    <materialDesign:PackIcon Kind="LockOutline" Width="18" Height="18"
+                                                             Foreground="{StaticResource TextMuted}"
+                                                             VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                             Margin="14,0,0,0" IsHitTestVisible="False"/>
+                                    <Button Style="{StaticResource IconToggleStyle}"
+                                            Command="{Binding TogglePasswordCommand}"
+                                            HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Margin="0,0,12,0">
+                                        <Grid>
+                                            <materialDesign:PackIcon Kind="EyeOutline" Width="18" Height="18"
+                                                                     Visibility="{Binding IsPasswordVisible, Converter={StaticResource InverseBoolToVis}}"/>
+                                            <materialDesign:PackIcon Kind="EyeOffOutline" Width="18" Height="18"
+                                                                     Visibility="{Binding IsPasswordVisible, Converter={StaticResource BoolToVis}}"/>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                            </StackPanel>
+
+                            <!-- G. Remember Me + Forgot Password -->
+                            <Grid Grid.Row="6" Margin="0,12,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox Grid.Column="0" Content="Remember me"
+                                          Style="{StaticResource DarkCheckBoxStyle}"
+                                          IsChecked="{Binding RememberMe}"/>
+                                <Button Grid.Column="2" Content="Forgot password?"
+                                        Style="{StaticResource LinkButtonStyle}"
+                                        Command="{Binding ForgotPasswordCommand}"/>
+                            </Grid>
+
+                            <!-- H. Login Button -->
+                            <Button Grid.Row="7" Margin="0,28,0,0"
+                                    Style="{StaticResource PrimaryButtonStyle}"
+                                    Command="{Binding LoginCommand}"
+                                    IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBool}}">
+                                <Grid>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                                Visibility="{Binding IsLoading, Converter={StaticResource InverseBoolToVis}}">
+                                        <StackPanel Orientation="Horizontal"
+                                                    Visibility="{Binding IsSuccess, Converter={StaticResource InverseBoolToVis}}">
+                                            <materialDesign:PackIcon Kind="Login" Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Sign In" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Visibility="{Binding IsSuccess, Converter={StaticResource BoolToVis}}">
+                                            <materialDesign:PackIcon Kind="CheckCircle" Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Welcome!" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                                Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}">
+                                        <Border Width="18" Height="18" BorderBrush="White"
+                                                BorderThickness="2,2,2,0" CornerRadius="9"
+                                                RenderTransformOrigin="0.5,0.5">
+                                            <Border.RenderTransform>
+                                                <RotateTransform x:Name="SpinnerRotate"/>
+                                            </Border.RenderTransform>
+                                        </Border>
+                                        <TextBlock Text="Signing in..." Margin="10,0,0,0"
+                                                   VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
+
+                            <Border Grid.Row="8"/>
+
+                            <!-- I. Footer -->
+                            <TextBlock Grid.Row="9"
+                                       Text="&#169; 2025 Tatweer. All rights reserved."
+                                       FontSize="11" Foreground="{StaticResource TextMuted}"
+                                       HorizontalAlignment="Center" Margin="0,24,0,0"/>
+                        </Grid>
+                    </ScrollViewer>
+                </Border>
+
+                <!-- ===== RIGHT PANEL — Visual Branding ===== -->
+                <Border Grid.Column="1" ClipToBounds="True"
+                        Background="{StaticResource RightPanelGradient}">
+                    <Grid>
+                        <!-- Dot grid canvas -->
+                        <Canvas x:Name="DotCanvas" Opacity="0.5"/>
+
+                        <!-- Glow Orbs -->
+                        <Canvas>
+                            <Ellipse Width="400" Height="400" Canvas.Right="-50" Canvas.Top="-100">
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="#186366F1" Offset="0"/>
+                                        <GradientStop Color="#006366F1" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                                <Ellipse.RenderTransform>
+                                    <TranslateTransform x:Name="Orb1Transform"/>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                            <Ellipse Width="300" Height="300" Canvas.Left="50" Canvas.Bottom="-50">
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="#180EA5E9" Offset="0"/>
+                                        <GradientStop Color="#000EA5E9" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                                <Ellipse.RenderTransform>
+                                    <TranslateTransform x:Name="Orb2Transform"/>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                            <Ellipse Width="200" Height="200">
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="#158B5CF6" Offset="0"/>
+                                        <GradientStop Color="#008B5CF6" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                                <Ellipse.RenderTransform>
+                                    <ScaleTransform x:Name="Orb3Transform" CenterX="100" CenterY="100"/>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                        </Canvas>
+
+                        <!-- Main Content -->
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="48">
+                            <!-- Large logo -->
+                            <Border Width="100" Height="100" CornerRadius="28"
+                                    HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5"
+                                    BorderThickness="1.5">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#336366F1" Offset="0"/>
+                                        <GradientStop Color="#338B5CF6" Offset="0.5"/>
+                                        <GradientStop Color="#330EA5E9" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#6366F1" Offset="0"/>
+                                        <GradientStop Color="#8B5CF6" Offset="0.5"/>
+                                        <GradientStop Color="#0EA5E9" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#6366F1" BlurRadius="30" Opacity="0.5" ShadowDepth="0"/>
+                                </Border.Effect>
+                                <Border.RenderTransform>
+                                    <ScaleTransform x:Name="LogoScale" ScaleX="1" ScaleY="1"/>
+                                </Border.RenderTransform>
+                                <TextBlock Text="T" FontSize="48" FontWeight="Bold" Foreground="White"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <!-- Brand name -->
+                            <TextBlock Text="Tatweer POS" FontSize="36" FontWeight="ExtraBold"
+                                       HorizontalAlignment="Center" Margin="0,24,0,8">
+                                <TextBlock.Foreground>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#6366F1" Offset="0"/>
+                                        <GradientStop Color="#8B5CF6" Offset="0.4"/>
+                                        <GradientStop Color="#0EA5E9" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </TextBlock.Foreground>
+                            </TextBlock>
+
+                            <TextBlock Text="Point of Sale Management System" FontSize="14"
+                                       Foreground="{StaticResource TextSecondary}"
+                                       HorizontalAlignment="Center" Margin="0,0,0,48"/>
+
+                            <!-- Feature 1 -->
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                <Border Width="36" Height="36" CornerRadius="10"
+                                        Background="{StaticResource PrimaryPillBg}"
+                                        BorderBrush="{StaticResource PrimaryPillBorder}" BorderThickness="1">
+                                    <materialDesign:PackIcon Kind="ShoppingOutline"
+                                                             Foreground="{StaticResource PrimaryBrush}"
+                                                             Width="18" Height="18"
+                                                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="Smart Sales Management" FontSize="14" FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextPrimary}"/>
+                                    <TextBlock Text="Fast checkout &amp; multi-order support" FontSize="12"
+                                               Foreground="{StaticResource TextSecondary}"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <!-- Feature 2 -->
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                <Border Width="36" Height="36" CornerRadius="10"
+                                        Background="{StaticResource TealPillBg}"
+                                        BorderBrush="{StaticResource TealPillBorder}" BorderThickness="1">
+                                    <materialDesign:PackIcon Kind="ChartLineVariant"
+                                                             Foreground="{StaticResource TealAccent}"
+                                                             Width="18" Height="18"
+                                                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="Real-time Analytics" FontSize="14" FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextPrimary}"/>
+                                    <TextBlock Text="Live reports &amp; performance insights" FontSize="12"
+                                               Foreground="{StaticResource TextSecondary}"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <!-- Feature 3 -->
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="36" Height="36" CornerRadius="10"
+                                        Background="{StaticResource SuccessPillBg}"
+                                        BorderBrush="{StaticResource SuccessPillBorder}" BorderThickness="1">
+                                    <materialDesign:PackIcon Kind="ShieldCheckOutline"
+                                                             Foreground="{StaticResource SuccessBrush}"
+                                                             Width="18" Height="18"
+                                                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="Secure &amp; Reliable" FontSize="14" FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextPrimary}"/>
+                                    <TextBlock Text="Role-based access &amp; audit logs" FontSize="12"
+                                               Foreground="{StaticResource TextSecondary}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Version tag -->
+                        <TextBlock Text="v1.0.0 — Build 2025.03" FontSize="11"
+                                   Foreground="{StaticResource TextMuted}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                                   Margin="0,0,0,24"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- ===== FORGOT PASSWORD DIALOG OVERLAY ===== -->
+            <Border Grid.Row="0" Grid.RowSpan="2"
+                    Visibility="{Binding ShowForgotDialog, Converter={StaticResource BoolToVis}}"
+                    Background="#80000000" CornerRadius="16">
+                <Border Background="{StaticResource CardBg}" CornerRadius="16" Padding="32"
+                        Width="380" Height="220"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        BorderBrush="{StaticResource InputBorder}" BorderThickness="1">
+                    <StackPanel VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="InformationOutline" Width="32" Height="32"
+                                                 Foreground="{StaticResource PrimaryBrush}"
+                                                 HorizontalAlignment="Center"/>
+                        <TextBlock Text="Forgot Password" FontSize="18" FontWeight="Bold"
+                                   Foreground="{StaticResource TextPrimary}"
+                                   HorizontalAlignment="Center" Margin="0,12,0,8"/>
+                        <TextBlock Text="Please contact your system administrator&#x0a;Email: support@tatweer.com&#x0a;Phone: +966 XX XXX XXXX"
+                                   FontSize="13" Foreground="{StaticResource TextSecondary}"
+                                   TextAlignment="Center" HorizontalAlignment="Center"/>
+                        <Button Content="OK" Style="{StaticResource PrimaryButtonStyle}"
+                                Margin="0,16,0,0" Height="36"
+                                Command="{Binding CloseForgotDialogCommand}"/>
+                    </StackPanel>
+                </Border>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

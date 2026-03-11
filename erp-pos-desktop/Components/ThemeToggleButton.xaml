@@ -1,0 +1,32 @@
+<UserControl x:Class="TatweerPOS.Components.ThemeToggleButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             x:Name="Root">
+
+    <Button x:Name="ToggleBtn"
+            Style="{StaticResource TitleBarButtonStyle}"
+            Width="36" Height="36"
+            ToolTip="{StaticResource str_ToggleTheme}"
+            Click="OnToggleClick">
+        <Grid RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <RotateTransform x:Name="IconRotation" Angle="0"/>
+            </Grid.RenderTransform>
+
+            <!-- Sun icon (Light mode indicator) — visible when dark theme is active -->
+            <materialDesign:PackIcon x:Name="SunIcon"
+                                     Kind="WhiteBalanceSunny"
+                                     Width="20" Height="20"
+                                     Foreground="{StaticResource WarningBrush}"
+                                     Visibility="Visible"/>
+
+            <!-- Moon icon (Dark mode indicator) — visible when light theme is active -->
+            <materialDesign:PackIcon x:Name="MoonIcon"
+                                     Kind="MoonWaningCrescent"
+                                     Width="20" Height="20"
+                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Visibility="Collapsed"/>
+        </Grid>
+    </Button>
+</UserControl>

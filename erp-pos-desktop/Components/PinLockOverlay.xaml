@@ -1,0 +1,163 @@
+<UserControl x:Class="TatweerPOS.Components.PinLockOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             x:Name="Root"
+             Focusable="True"
+             KeyDown="OnKeyDown">
+
+    <!-- Full-screen overlay background -->
+    <Grid Background="{StaticResource WindowBg}">
+
+        <!-- Subtle gradient overlay -->
+        <Border Background="{StaticResource PrimaryGradient}" Opacity="0.03"/>
+
+        <!-- Center content -->
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="340">
+
+            <!-- User avatar circle with initials -->
+            <Border Width="80" Height="80"
+                    CornerRadius="40"
+                    Background="{StaticResource PrimaryBrush}"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,16">
+                <TextBlock x:Name="InitialsText"
+                           Text="{Binding UserInitials, ElementName=Root}"
+                           FontSize="28" FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Border>
+
+            <!-- User name -->
+            <TextBlock x:Name="UserNameText"
+                       Text="{Binding UserName, ElementName=Root}"
+                       FontSize="20" FontWeight="SemiBold"
+                       Foreground="{StaticResource TextPrimary}"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,4"/>
+
+            <!-- User role -->
+            <TextBlock x:Name="UserRoleText"
+                       Text="{Binding UserRole, ElementName=Root}"
+                       FontSize="13"
+                       Foreground="{StaticResource TextSecondary}"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,32"/>
+
+            <!-- Enter PIN label -->
+            <TextBlock Text="{StaticResource str_EnterPin}"
+                       FontSize="14"
+                       Foreground="{StaticResource TextSecondary}"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,16"/>
+
+            <!-- 4-digit PIN boxes -->
+            <StackPanel x:Name="PinBoxesPanel"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,16"
+                        RenderTransformOrigin="0.5,0.5">
+                <StackPanel.RenderTransform>
+                    <TranslateTransform x:Name="PinShakeTransform" X="0"/>
+                </StackPanel.RenderTransform>
+
+                <Border x:Name="PinBox0" Width="56" Height="64"
+                        CornerRadius="12" Margin="6,0"
+                        Background="{StaticResource InputBg}"
+                        BorderBrush="{StaticResource InputBorder}"
+                        BorderThickness="1.5">
+                    <TextBlock x:Name="PinDigit0"
+                               FontSize="24" FontWeight="Bold"
+                               Foreground="{StaticResource TextPrimary}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+
+                <Border x:Name="PinBox1" Width="56" Height="64"
+                        CornerRadius="12" Margin="6,0"
+                        Background="{StaticResource InputBg}"
+                        BorderBrush="{StaticResource InputBorder}"
+                        BorderThickness="1.5">
+                    <TextBlock x:Name="PinDigit1"
+                               FontSize="24" FontWeight="Bold"
+                               Foreground="{StaticResource TextPrimary}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+
+                <Border x:Name="PinBox2" Width="56" Height="64"
+                        CornerRadius="12" Margin="6,0"
+                        Background="{StaticResource InputBg}"
+                        BorderBrush="{StaticResource InputBorder}"
+                        BorderThickness="1.5">
+                    <TextBlock x:Name="PinDigit2"
+                               FontSize="24" FontWeight="Bold"
+                               Foreground="{StaticResource TextPrimary}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+
+                <Border x:Name="PinBox3" Width="56" Height="64"
+                        CornerRadius="12" Margin="6,0"
+                        Background="{StaticResource InputBg}"
+                        BorderBrush="{StaticResource InputBorder}"
+                        BorderThickness="1.5">
+                    <TextBlock x:Name="PinDigit3"
+                               FontSize="24" FontWeight="Bold"
+                               Foreground="{StaticResource TextPrimary}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+            </StackPanel>
+
+            <!-- Error / wrong PIN message -->
+            <TextBlock x:Name="ErrorMessage"
+                       FontSize="13"
+                       Foreground="{StaticResource ErrorBrush}"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,8"
+                       Visibility="Collapsed"/>
+
+            <!-- Locked out message with countdown -->
+            <StackPanel x:Name="LockedPanel"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,8,0,8"
+                        Visibility="Collapsed">
+                <materialDesign:PackIcon Kind="Lock"
+                                         Width="16" Height="16"
+                                         Foreground="{StaticResource ErrorBrush}"
+                                         Margin="0,0,6,0"
+                                         VerticalAlignment="Center"/>
+                <TextBlock Text="{StaticResource str_ContactManager}"
+                           FontSize="13"
+                           Foreground="{StaticResource ErrorBrush}"
+                           VerticalAlignment="Center"
+                           Margin="0,0,6,0"/>
+                <TextBlock x:Name="CountdownText"
+                           FontSize="13" FontWeight="Bold"
+                           Foreground="{StaticResource ErrorBrush}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Switch User button -->
+            <Button x:Name="SwitchUserBtn"
+                    Content="{StaticResource str_SwitchUser}"
+                    Style="{StaticResource LinkButtonStyle}"
+                    HorizontalAlignment="Center"
+                    Margin="0,24,0,0"
+                    Click="OnSwitchUserClick"/>
+
+            <!-- Lock icon at bottom -->
+            <materialDesign:PackIcon Kind="ShieldLock"
+                                     Width="24" Height="24"
+                                     Foreground="{StaticResource TextMuted}"
+                                     HorizontalAlignment="Center"
+                                     Margin="0,32,0,0"
+                                     Opacity="0.5"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

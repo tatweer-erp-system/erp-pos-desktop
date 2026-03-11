@@ -1,0 +1,360 @@
+<UserControl x:Class="TatweerPOS.Views.Pages.EmployeesPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:components="clr-namespace:TatweerPOS.Components">
+
+    <Grid Background="{StaticResource WindowBg}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ═══ Header Section ═══ -->
+        <Border x:Name="HeaderSection" Grid.Row="0" Padding="24,20,24,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Title Row -->
+                <Grid Grid.Row="0" Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="AccountGroup" Width="28" Height="28"
+                                                 Foreground="{StaticResource PrimaryBrush}"
+                                                 VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <TextBlock Text="{StaticResource str_Employees}"
+                                   FontSize="24" FontWeight="Bold"
+                                   Foreground="{StaticResource TextPrimary}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Add Employee Button (permission-gated) -->
+                    <Button Grid.Column="1"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Height="40" Padding="20,0"
+                            Visibility="{Binding CurrentUserRole, Converter={StaticResource RoleToVisibility}}"
+                            Click="OnAddEmployeeClick">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Plus" Width="18" Height="18"
+                                                     VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBlock Text="{StaticResource str_AddEmployee}"
+                                       VerticalAlignment="Center" FontSize="13"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <!-- Stats Row -->
+                <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,16">
+                    <!-- Total -->
+                    <Border Background="{StaticResource CardBg}" CornerRadius="10"
+                            Padding="16,12" Margin="0,0,8,0">
+                        <StackPanel>
+                            <TextBlock Text="{StaticResource str_Total}"
+                                       FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                            <TextBlock x:Name="TotalCountText" Text="0"
+                                       FontSize="22" FontWeight="Bold"
+                                       Foreground="{StaticResource TextPrimary}"/>
+                        </StackPanel>
+                    </Border>
+                    <!-- Active -->
+                    <Border Background="{StaticResource CardBg}" CornerRadius="10"
+                            Padding="16,12" Margin="4,0">
+                        <StackPanel>
+                            <TextBlock Text="{StaticResource str_Active}"
+                                       FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                            <TextBlock x:Name="ActiveCountText" Text="0"
+                                       FontSize="22" FontWeight="Bold"
+                                       Foreground="{StaticResource SuccessBrush}"/>
+                        </StackPanel>
+                    </Border>
+                    <!-- Managers -->
+                    <Border Background="{StaticResource CardBg}" CornerRadius="10"
+                            Padding="16,12" Margin="4,0">
+                        <StackPanel>
+                            <TextBlock Text="{StaticResource str_Manager}"
+                                       FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                            <TextBlock x:Name="ManagerCountText" Text="0"
+                                       FontSize="22" FontWeight="Bold"
+                                       Foreground="{StaticResource PrimaryBrush}"/>
+                        </StackPanel>
+                    </Border>
+                    <!-- Cashiers -->
+                    <Border Background="{StaticResource CardBg}" CornerRadius="10"
+                            Padding="16,12" Margin="8,0,0,0">
+                        <StackPanel>
+                            <TextBlock Text="{StaticResource str_Cashier}"
+                                       FontSize="12" Foreground="{StaticResource TextMuted}"/>
+                            <TextBlock x:Name="CashierCountText" Text="0"
+                                       FontSize="22" FontWeight="Bold"
+                                       Foreground="{StaticResource WarningBrush}"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+            </Grid>
+        </Border>
+
+        <!-- ═══ Filters Row ═══ -->
+        <Border x:Name="FiltersRow" Grid.Row="1" Padding="24,0,24,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+
+                <components:SearchBox x:Name="EmployeeSearchBox"/>
+
+                <ComboBox x:Name="RoleFilterCombo" Grid.Column="2"
+                          Style="{StaticResource DarkComboStyle}"
+                          Height="44"
+                          SelectionChanged="OnRoleFilterChanged">
+                    <ComboBoxItem Content="{StaticResource str_AllCategories}" IsSelected="True"/>
+                    <ComboBoxItem Content="{StaticResource str_Admin}"/>
+                    <ComboBoxItem Content="{StaticResource str_Manager}"/>
+                    <ComboBoxItem Content="{StaticResource str_Cashier}"/>
+                </ComboBox>
+            </Grid>
+        </Border>
+
+        <!-- ═══ Loading State ═══ -->
+        <StackPanel x:Name="LoadingState" Grid.Row="2" Visibility="Collapsed"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+            <components:LoadingSkeleton SkeletonHeight="60" SkeletonWidth="600" Margin="0,0,0,8"/>
+            <components:LoadingSkeleton SkeletonHeight="60" SkeletonWidth="600" Margin="0,0,0,8"/>
+            <components:LoadingSkeleton SkeletonHeight="60" SkeletonWidth="600"/>
+        </StackPanel>
+
+        <!-- ═══ Content Area ═══ -->
+        <Grid x:Name="ContentArea" Grid.Row="2" Margin="24,0,24,24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition x:Name="DetailColumn" Width="0"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Employee Cards Grid -->
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <ItemsControl x:Name="EmployeesList">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="{StaticResource CardBg}"
+                                        CornerRadius="12" Padding="16" Margin="0,0,12,12"
+                                        Width="280" Cursor="Hand"
+                                        MouseLeftButtonUp="OnEmployeeCardClick">
+                                    <Border.Tag>
+                                        <Binding Path="Id"/>
+                                    </Border.Tag>
+                                    <StackPanel>
+                                        <!-- Avatar + Name Row -->
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                            <!-- Avatar Circle -->
+                                            <Border Width="44" Height="44" CornerRadius="22"
+                                                    Margin="0,0,12,0">
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="{Binding AvatarColor}"/>
+                                                </Border.Background>
+                                                <TextBlock FontSize="16" FontWeight="Bold"
+                                                           Foreground="White"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center">
+                                                    <TextBlock.Text>
+                                                        <Binding Path="Name"
+                                                                 StringFormat="{}{0}"
+                                                                 Converter="{StaticResource EnumToString}"/>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Border>
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Name}"
+                                                           FontSize="15" FontWeight="SemiBold"
+                                                           Foreground="{StaticResource TextPrimary}"/>
+                                                <TextBlock Text="{Binding Email}"
+                                                           FontSize="12"
+                                                           Foreground="{StaticResource TextMuted}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <!-- Divider -->
+                                        <Border Height="1" Background="{StaticResource DividerBrush}"
+                                                Margin="0,0,0,10"/>
+
+                                        <!-- Details Row -->
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel>
+                                                <!-- Role Badge -->
+                                                <Border CornerRadius="4" Padding="8,3"
+                                                        HorizontalAlignment="Left" Margin="0,0,0,6"
+                                                        Background="{StaticResource SurfaceBg}">
+                                                    <TextBlock Text="{Binding Role, Converter={StaticResource EnumToString}}"
+                                                               FontSize="11" FontWeight="SemiBold"
+                                                               Foreground="{StaticResource PrimaryBrush}"/>
+                                                </Border>
+
+                                                <!-- Branch -->
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Kind="MapMarker" Width="14" Height="14"
+                                                                             Foreground="{StaticResource TextMuted}"
+                                                                             VerticalAlignment="Center"
+                                                                             Margin="0,0,4,0"/>
+                                                    <TextBlock Text="{Binding BranchId}"
+                                                               FontSize="12"
+                                                               Foreground="{StaticResource TextSecondary}"/>
+                                                </StackPanel>
+                                            </StackPanel>
+
+                                            <!-- Status Indicator -->
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+                                                <Border CornerRadius="4" Padding="8,3"
+                                                        HorizontalAlignment="Right"
+                                                        Background="{Binding IsActive, Converter={StaticResource StatusToColor}}">
+                                                    <TextBlock FontSize="11" FontWeight="SemiBold"
+                                                               Foreground="White">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                                        <Setter Property="Text" Value="{StaticResource str_Active}"/>
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding IsActive}" Value="False">
+                                                                        <Setter Property="Text" Value="{StaticResource str_Inactive}"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </Border>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <!-- Hire Date -->
+                                        <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                            <materialDesign:PackIcon Kind="CalendarStart" Width="14" Height="14"
+                                                                     Foreground="{StaticResource TextMuted}"
+                                                                     VerticalAlignment="Center"
+                                                                     Margin="0,0,4,0"/>
+                                            <TextBlock FontSize="12"
+                                                       Foreground="{StaticResource TextMuted}">
+                                                <Run Text="{StaticResource str_HireDate}"/>
+                                                <Run Text=": "/>
+                                                <Run Text="{Binding HireDate, StringFormat=d, Mode=OneWay}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Empty State -->
+                    <components:EmptyState x:Name="EmployeesEmptyState"
+                                           Icon="AccountGroupOutline"
+                                           Title="{StaticResource str_NoEmployees}"
+                                           Visibility="Collapsed"/>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ═══ Detail Panel ═══ -->
+            <Border x:Name="DetailPanel" Grid.Column="1"
+                    Background="{StaticResource SurfaceBg}"
+                    CornerRadius="12" Margin="16,0,0,0"
+                    Padding="20" Visibility="Collapsed">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <!-- Close Detail -->
+                        <Button HorizontalAlignment="Right"
+                                Style="{StaticResource TitleBarButtonStyle}"
+                                Click="OnCloseDetailClick">
+                            <materialDesign:PackIcon Kind="Close" Width="18" Height="18"/>
+                        </Button>
+
+                        <!-- Detail Avatar -->
+                        <Border x:Name="DetailAvatar" Width="72" Height="72"
+                                CornerRadius="36" Margin="0,0,0,16"
+                                HorizontalAlignment="Center"
+                                Background="{StaticResource PrimaryBrush}">
+                            <TextBlock x:Name="DetailAvatarInitial"
+                                       FontSize="26" FontWeight="Bold"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Border>
+
+                        <TextBlock x:Name="DetailName"
+                                   FontSize="20" FontWeight="Bold"
+                                   Foreground="{StaticResource TextPrimary}"
+                                   HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="DetailEmail"
+                                   FontSize="13" Foreground="{StaticResource TextMuted}"
+                                   HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="DetailPhone"
+                                   FontSize="13" Foreground="{StaticResource TextSecondary}"
+                                   HorizontalAlignment="Center" Margin="0,0,0,16"/>
+
+                        <Border Height="1" Background="{StaticResource DividerBrush}"
+                                Margin="0,0,0,16"/>
+
+                        <!-- Detail Fields -->
+                        <TextBlock Text="{StaticResource str_Role}" FontSize="12"
+                                   Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="DetailRole" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextPrimary}" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="{StaticResource str_Branch}" FontSize="12"
+                                   Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="DetailBranch" FontSize="14"
+                                   Foreground="{StaticResource TextPrimary}" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="{StaticResource str_HireDate}" FontSize="12"
+                                   Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="DetailHireDate" FontSize="14"
+                                   Foreground="{StaticResource TextPrimary}" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="{StaticResource str_Status}" FontSize="12"
+                                   Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="DetailStatus" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource SuccessBrush}" Margin="0,0,0,20"/>
+
+                        <Border Height="1" Background="{StaticResource DividerBrush}"
+                                Margin="0,0,0,16"/>
+
+                        <!-- Action Buttons -->
+                        <StackPanel Visibility="{Binding CurrentUserRole, Converter={StaticResource RoleToVisibility}}">
+                            <Button Content="{StaticResource str_EditEmployee}"
+                                    Style="{StaticResource PrimaryButtonStyle}"
+                                    Height="36" FontSize="13" Margin="0,0,0,8"
+                                    Click="OnEditEmployeeClick"/>
+
+                            <Button x:Name="ToggleActiveBtn"
+                                    Style="{StaticResource PrimaryButtonStyle}"
+                                    Height="36" FontSize="13" Margin="0,0,0,8"
+                                    Click="OnToggleActiveClick"/>
+
+                            <Button Content="{StaticResource str_ResetPin}"
+                                    Style="{StaticResource PrimaryButtonStyle}"
+                                    Height="36" FontSize="13"
+                                    Click="OnResetPinClick"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

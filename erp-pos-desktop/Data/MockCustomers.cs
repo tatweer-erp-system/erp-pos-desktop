@@ -1,0 +1,37 @@
+namespace TatweerPOS.Data;
+
+using TatweerPOS.Models;
+using TatweerPOS.Models.Enums;
+
+public static class MockCustomers
+{
+    public static List<Customer> All => new()
+    {
+        new Customer { Id = "C001", Name = "Mohammed Al-Rashidi", Email = "m.rashidi@gmail.com", Phone = "0551110001", Address = "Riyadh, Al-Malaz District", Tier = CustomerTier.Platinum, LoyaltyPoints = 4850, TotalSpent = 12500m, TotalVisits = 95, JoinDate = new DateTime(2024, 2, 10) },
+        new Customer { Id = "C002", Name = "Fatima Al-Zahrani", Email = "fatima.z@outlook.com", Phone = "0552220002", Address = "Riyadh, Al-Olaya District", Tier = CustomerTier.Gold, LoyaltyPoints = 2300, TotalSpent = 6800m, TotalVisits = 52, JoinDate = new DateTime(2024, 4, 15) },
+        new Customer { Id = "C003", Name = "Abdullah Al-Qahtani", Email = "abdullah.q@gmail.com", Phone = "0553330003", Address = "Jeddah, Al-Hamra District", Tier = CustomerTier.Gold, LoyaltyPoints = 1950, TotalSpent = 5400m, TotalVisits = 44, JoinDate = new DateTime(2024, 3, 22) },
+        new Customer { Id = "C004", Name = "Noura Al-Harbi", Email = "noura.h@yahoo.com", Phone = "0554440004", Address = "Riyadh, Al-Nakheel District", Tier = CustomerTier.Silver, LoyaltyPoints = 1200, TotalSpent = 3200m, TotalVisits = 28, JoinDate = new DateTime(2024, 6, 8) },
+        new Customer { Id = "C005", Name = "Saad Al-Dosari", Email = "saad.d@gmail.com", Phone = "0555550005", Address = "Dammam, Al-Faisaliyah District", Tier = CustomerTier.Silver, LoyaltyPoints = 980, TotalSpent = 2800m, TotalVisits = 22, JoinDate = new DateTime(2024, 7, 1) },
+        new Customer { Id = "C006", Name = "Huda Bin Salman", Email = "huda.bs@outlook.com", Phone = "0556660006", Address = "Riyadh, Al-Yasmin District", Tier = CustomerTier.Platinum, LoyaltyPoints = 5200, TotalSpent = 15200m, TotalVisits = 110, JoinDate = new DateTime(2024, 1, 5) },
+        new Customer { Id = "C007", Name = "Khalid Al-Otaibi", Email = "khalid.ot@gmail.com", Phone = "0557770007", Address = "Mecca, Al-Aziziyah District", Tier = CustomerTier.Bronze, LoyaltyPoints = 350, TotalSpent = 950m, TotalVisits = 8, JoinDate = new DateTime(2025, 1, 20) },
+        new Customer { Id = "C008", Name = "Rania Al-Shammari", Email = "rania.sh@gmail.com", Phone = "0558880008", Address = "Riyadh, Al-Rawdah District", Tier = CustomerTier.Gold, LoyaltyPoints = 2100, TotalSpent = 5900m, TotalVisits = 48, JoinDate = new DateTime(2024, 5, 12) },
+        new Customer { Id = "C009", Name = "Faisal Al-Mutairi", Email = "faisal.m@yahoo.com", Phone = "0559990009", Address = "Jeddah, Al-Salamah District", Tier = CustomerTier.Silver, LoyaltyPoints = 1100, TotalSpent = 3100m, TotalVisits = 25, JoinDate = new DateTime(2024, 8, 3) },
+        new Customer { Id = "C010", Name = "Maha Al-Ghamdi", Email = "maha.g@outlook.com", Phone = "0551110010", Address = "Riyadh, Al-Sulimaniyah District", Tier = CustomerTier.Bronze, LoyaltyPoints = 450, TotalSpent = 1200m, TotalVisits = 10, JoinDate = new DateTime(2025, 2, 14) },
+        new Customer { Id = "C011", Name = "Turki Al-Enazi", Email = "turki.e@gmail.com", Phone = "0552220011", Address = "Tabuk, Al-Muruj District", Tier = CustomerTier.Bronze, LoyaltyPoints = 200, TotalSpent = 600m, TotalVisits = 5, JoinDate = new DateTime(2025, 6, 10) },
+        new Customer { Id = "C012", Name = "Lama Al-Subaie", Email = "lama.s@gmail.com", Phone = "0553330012", Address = "Riyadh, Hittin District", Tier = CustomerTier.Gold, LoyaltyPoints = 2700, TotalSpent = 7200m, TotalVisits = 58, JoinDate = new DateTime(2024, 3, 1) },
+        new Customer { Id = "C013", Name = "Hassan Al-Asmari", Email = "hassan.a@outlook.com", Phone = "0554440013", Address = "Abha, Al-Manhal District", Tier = CustomerTier.Silver, LoyaltyPoints = 850, TotalSpent = 2400m, TotalVisits = 18, JoinDate = new DateTime(2024, 9, 25) },
+        new Customer { Id = "C014", Name = "Deema Al-Jubeir", Email = "deema.j@yahoo.com", Phone = "0555550014", Address = "Khobar, Al-Yarmouk District", Tier = CustomerTier.Bronze, LoyaltyPoints = 300, TotalSpent = 800m, TotalVisits = 7, JoinDate = new DateTime(2025, 4, 18) },
+        new Customer { Id = "C015", Name = "Nasser Al-Tamimi", Email = "nasser.t@gmail.com", Phone = "0556660015", Address = "Riyadh, Al-Murabba District", Tier = CustomerTier.Platinum, LoyaltyPoints = 4100, TotalSpent = 11800m, TotalVisits = 88, JoinDate = new DateTime(2024, 2, 28) },
+        new Customer { Id = "C016", Name = "Salwa Al-Harthy", Email = "salwa.h@outlook.com", Phone = "0557770016", Address = "Madinah, Al-Arid District", Tier = CustomerTier.Silver, LoyaltyPoints = 950, TotalSpent = 2600m, TotalVisits = 20, JoinDate = new DateTime(2024, 10, 5) },
+        new Customer { Id = "C017", Name = "Bandar Al-Malki", Email = "bandar.m@gmail.com", Phone = "0558880017", Address = "Riyadh, Al-Wahah District", Tier = CustomerTier.Bronze, LoyaltyPoints = 180, TotalSpent = 520m, TotalVisits = 4, JoinDate = new DateTime(2025, 8, 12) },
+        new Customer { Id = "C018", Name = "Amal Bin Laden", Email = "amal.bl@yahoo.com", Phone = "0559990018", Address = "Jeddah, Al-Rawdah District", Tier = CustomerTier.Gold, LoyaltyPoints = 1800, TotalSpent = 4900m, TotalVisits = 40, JoinDate = new DateTime(2024, 5, 30) },
+        new Customer { Id = "C019", Name = "Yasser Al-Shahrani", Email = "yasser.sh@gmail.com", Phone = "0551110019", Address = "Riyadh, Al-Izdihar District", Tier = CustomerTier.Silver, LoyaltyPoints = 1050, TotalSpent = 2900m, TotalVisits = 23, JoinDate = new DateTime(2024, 7, 15) },
+        new Customer { Id = "C020", Name = "Reema Al-Fayez", Email = "reema.f@outlook.com", Phone = "0552220020", Address = "Riyadh, Al-Aqiq District", Tier = CustomerTier.Platinum, LoyaltyPoints = 5500, TotalSpent = 16000m, TotalVisits = 120, JoinDate = new DateTime(2024, 1, 15) },
+        new Customer { Id = "C021", Name = "Majed Al-Saud", Email = "majed.s@gmail.com", Phone = "0553330021", Address = "Riyadh, Diplomatic Quarter", Tier = CustomerTier.Bronze, LoyaltyPoints = 400, TotalSpent = 1100m, TotalVisits = 9, JoinDate = new DateTime(2025, 3, 7) },
+        new Customer { Id = "C022", Name = "Dalal Al-Jabri", Email = "dalal.j@yahoo.com", Phone = "0554440022", Address = "Dammam, Al-Shati District", Tier = CustomerTier.Silver, LoyaltyPoints = 1350, TotalSpent = 3700m, TotalVisits = 30, JoinDate = new DateTime(2024, 6, 22) },
+        new Customer { Id = "C023", Name = "Waleed Al-Dossary", Email = "waleed.d@gmail.com", Phone = "0555550023", Address = "Riyadh, Al-Naseem District", Tier = CustomerTier.Gold, LoyaltyPoints = 2000, TotalSpent = 5600m, TotalVisits = 45, JoinDate = new DateTime(2024, 4, 8) },
+        new Customer { Id = "C024", Name = "Sarah Mitchell", Email = "sarah.m@outlook.com", Phone = "0556660024", Address = "Jeddah, Al-Corniche Area", Tier = CustomerTier.Bronze, LoyaltyPoints = 250, TotalSpent = 700m, TotalVisits = 6, JoinDate = new DateTime(2025, 5, 1) },
+        new Customer { Id = "C025", Name = "James Anderson", Email = "james.a@gmail.com", Phone = "0557770025", Address = "Riyadh, King Abdullah Financial District", Tier = CustomerTier.Silver, LoyaltyPoints = 900, TotalSpent = 2500m, TotalVisits = 19, JoinDate = new DateTime(2024, 11, 10) },
+        new Customer { Id = "C026", Name = "Abeer Al-Zahrani", Email = "abeer.z@gmail.com", Phone = "0558880026", Address = "Taif, Al-Hada District", Tier = CustomerTier.Bronze, LoyaltyPoints = 150, TotalSpent = 420m, TotalVisits = 3, JoinDate = new DateTime(2025, 10, 20), IsActive = false },
+    };
+}
