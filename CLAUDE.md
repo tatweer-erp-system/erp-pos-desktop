@@ -33,17 +33,40 @@ Multi-app ERP system. Each project lives in its own directory with its own `CLAU
 - Use conventional commits (e.g., `feat:`, `fix:`, `chore:`)
 - Run formatters/linters before committing
 
-### 5. API conventions
+### 5. Git branching strategy
+All projects follow the same branching model:
+
+| Branch | Purpose | Merges into |
+|--------|---------|-------------|
+| `prod` | Production-ready code (protected) | — |
+| `stg` | Pre-release testing & QA | `prod` |
+| `dev` | Integration branch for features | `stg` |
+| `feat/<name>` | New feature development | `dev` |
+| `fix/<name>` | Bug fixes | `dev` |
+| `hotfix/<name>` | Urgent production fixes | `prod` + `dev` |
+| `chore/<name>` | Maintenance, tooling, CI/CD | `dev` |
+| `refactor/<name>` | Code refactoring | `dev` |
+
+**Rules:**
+- Never push directly to `prod` or `stg` — always use PRs
+- Branch names must be lowercase, kebab-case (e.g., `feat/invoice-export`)
+- Delete branches after merge
+- Keep feature branches short-lived (< 1 week ideally)
+- Rebase feature branches on `dev` before opening a PR
+- Hotfixes branch from `prod`, merge back into both `prod` and `dev`
+- Use conventional commits in all commit messages
+
+### 6. API conventions
 - Backend API prefix: `/api/v1`
 - All API calls from frontends go through a service layer, never directly in components
 - Use axios instances configured per project
 
-### 6. Architecture
+### 7. Architecture
 - Backend: schema-per-tenant multi-tenancy in PostgreSQL
 - Frontend state: server state in React Query, client state in Zustand/Context
 - All route components are lazy-loaded
 
-### 7. Before modifying any sub-project
+### 8. Before modifying any sub-project
 - Read that project's `CLAUDE.md` first for specific rules
 - Understand the existing patterns before adding new code
 

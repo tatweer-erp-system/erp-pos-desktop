@@ -17,6 +17,16 @@
 
 ---
 
+## Git Branching
+- **Main branch:** `prod` (protected — never push directly)
+- **Branch prefixes:** `feat/`, `fix/`, `hotfix/`, `chore/`, `refactor/`
+- Branch names: lowercase, kebab-case (e.g., `feat/receipt-printer`)
+- Always branch from `dev`, PR into `dev`
+- Hotfixes branch from `prod`, merge into both `prod` and `dev`
+- Delete branches after merge
+
+---
+
 ## 🎨 Design System — CRITICAL RULES
 
 ### Rule #1 — Never Use Default WPF Styling
